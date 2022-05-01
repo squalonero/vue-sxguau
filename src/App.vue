@@ -55,4 +55,11 @@ body {
   background-color: #f3f3f3;
   color: #333;
 }
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+}
+.d-flex{
+  display: flex;
+}
 </style>

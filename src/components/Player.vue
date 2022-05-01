@@ -18,8 +18,12 @@
       <!-- Conditions -->
       <div class="heroSection" style="border: 1px solid #fff; padding: 10px">
         <div class="conditionsWrapper">
-
-          <ezselect :data="getConditions()" defaultLabel="Scegli una Condizione" name="conditions" id="conditions" :resetOnSelect="true" @ez-select:select="applyCondition"></ezselect>
+          <div class="conditionsActions">
+            <ezselect :data="getConditions()" defaultLabel="Scegli una Condizione" name="conditions" id="conditions" :resetOnSelect="true" @ez_select:select="applyCondition"></ezselect>
+            <div class="buttonWrapper randomCondition">
+              <icon name="dice" :size="20" color="#b33641" @click="randomCondition" />
+            </div>
+          </div>
 
           <!-- Applied Conditions -->
           <div v-for="(c, k) of conditions" :key="k" class="condition">
@@ -68,11 +72,21 @@ export default {
     },
     removeCondition(el) {
       this.conditions = this.conditions.filter((e) => e != el)
+    },
+    randomCondition(){
+      let conditions = this.getConditions().map(el=>el.name)
+      let randomCondition = conditions[Math.floor(Math.random()*conditions.length)]
+      this.applyCondition(randomCondition)
     }
   }
 }
 </script>
 <style scoped>
+.randomCondition svg
+{
+  background: #b33641;
+  color: #fff;
+}
 .playerboard {
   position: relative;
   padding: 10px;
@@ -104,5 +118,10 @@ export default {
 .condition svg {
   color: #b33641;
   cursor: pointer;
+}
+.conditionsActions
+{
+  display: flex;
+  align-items: center;
 }
 </style>

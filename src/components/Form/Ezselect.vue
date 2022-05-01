@@ -1,16 +1,18 @@
 <template>
-  <div class="ez-select">
+  <div class="ez_select">
     <select :name="name" :id="id" @change="changedSelect($event)" ref="select">
       <option value="">{{ this.defaultLabel }}</option>
       <option v-for="(opt, k) of data" :key="k" :value="opt.name">{{ opt.name }}</option>
     </select>
-    <div class="ez-slect-fake">
-      <div class="ez-select-selected-option" @click="this.dropDownOpen = !this.dropDownOpen">
+    <div class="ez_slect_fake">
+      <div class="ez_select_selected_option" @click="this.dropDownOpen = !this.dropDownOpen">
         {{ this.selected || this.defaultLabel }}
       </div>
-      <div class="ez-select-fake-list" v-if="this.dropDownOpen" :class="this.dropDownOpen ? 'open': ''">
-        <input ref="search" class="search" type="text" v-model="search" @input="filterList" v-focus  />
-        <div class="ez-select-fake-item" v-for="(opt, k) of searchList" :key="k" @click="changeTheSelect(opt.name)">{{ opt.name }}</div>
+      <div class="ez_select_fake_list" v-if="this.dropDownOpen" :class="this.dropDownOpen ? 'open' : ''">
+        <div class="d_flex ez_select_search_wrap">
+          <input ref="search" placeholder="Filtra..." class="search" type="text" v-model="search" @input="filterList" v-focus />
+        </div>
+        <div class="ez_select_fake_item" v-for="(opt, k) of searchList" :key="k" @click="changeTheSelect(opt.name)">{{ opt.name }}</div>
       </div>
     </div>
   </div>
@@ -29,10 +31,10 @@ export default {
     }
   },
   watch: {
-    dropDownOpen: function(){
+    dropDownOpen: function () {
       this.searchList = this.data.map((e) => {
         return { ...e }
-      });
+      })
     }
   },
   data() {
@@ -46,9 +48,10 @@ export default {
     }
   },
   methods: {
-    changedSelect($event) { //fallback in case of dropDownOpen:true
+    changedSelect($event) {
+      //fallback in case of dropDownOpen:true
       console.log("changed")
-      this.$emit("ez-select:select", $event, $event.target.value)
+      this.$emit("ez_select:select", $event, $event.target.value)
     },
     changeTheSelect(condition) {
       let selectedIndex = this.data.findIndex((option) => option.name === condition)
@@ -56,27 +59,28 @@ export default {
       this.selected = this.resetOnSelect ? this.defaultLabel : condition
       this.$refs.select.selectedIndex = this.resetOnSelect ? null : selectedIndex + 1
       this.dropDownOpen = false
-      this.search = ''
-      this.$emit("ez-select:select", condition)
+      this.search = ""
+      this.$emit("ez_select:select", condition)
     },
     filterList() {
       this.searchList = this.data.filter((elem) => elem.name.toLowerCase().includes(this.search.toLowerCase()))
-    },
+    }
   }
 }
 </script>
 <style scoped>
-select{
+select {
   display: none;
 }
-.ez-select-selected-option {
+.ez_select_selected_option {
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 1);
   border: 1px solid #aaa;
   padding: 3px 5px;
 }
-.ez-select-fake-list {
-  background: rgba(255, 255, 255, 0.9);
+
+.ez_select_fake_list {
+  background: #eee;
   position: absolute;
   inset: 100% 0 auto 0;
   visibility: hidden;
@@ -86,32 +90,37 @@ select{
   transition: 250ms ease;
   z-index: 2;
 }
-.ez-select-fake-list.open{
+.ez_select_fake_list.open {
   height: auto;
   opacity: 1;
   pointer-events: all;
   visibility: visible;
 }
-.ez-select-fake-item {
+.ez_select_fake_item {
   cursor: pointer;
   transition: 150ms;
   padding: 0 10px;
 }
-.ez-select-fake-item:hover {
+.ez_select_fake_item:hover {
   background: #333;
   color: #fff;
 }
-.ez-slect-fake
-{
+.ez_slect_fake {
   position: relative;
+  border-radius: 5px;
+}
+.ez_select_search_wrap
+{
+  padding: 5px 8px;
 }
 .search,
 .search:focus,
 .search:focus-visible,
 .search:active {
-  margin: 0 10px;
+  margin: 0 auto;
   border: none;
+  border-bottom: 1px solid #aaa;
   outline: none;
-  max-width: calc(100% - 20px);
+  max-width: calc(100% - 10px);
 }
 </style>

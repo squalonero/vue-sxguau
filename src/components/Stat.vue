@@ -64,10 +64,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5px;
+  padding: 5px 10px;
   border-radius: 5px;
 }
-.buttonWrapper {
-  display: flex;
-}
+
 </style>
