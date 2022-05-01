@@ -1,4 +1,5 @@
 {
+  "editor.codeActionsOnSave": {         "source.fixAll.eslint": true     },     "files.eol": "\n"
   // "editor.theme": "vs-dark",
   /**
    * Render vertical lines at the specified columns.

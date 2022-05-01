@@ -1,7 +1,7 @@
 <template>
   <div class="players">
-    <div v-for="(heroData, n) in players">
-      <player :id="n" :data="heroData"></player>
+    <div v-for="(heroData, k) in players" :key="k">
+      <player :id="k" :data="heroData"></player>
     </div>
   </div>
 </template>

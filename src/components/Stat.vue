@@ -59,19 +59,7 @@ export default {
   flex: 1;
   margin: 0 auto;
 }
-.inputWrapper svg {
-  padding: 5px;
-  background-color: #fff;
-  color: #666;
-  margin: 0 5px;
-  transition: 250ms;
-  cursor: pointer;
-  border-radius: 5px;
-}
-.inputWrapper svg:hover {
-  background-color: #f3f3f3;
-  color: #333;
-}
+
 .iconWrapper {
   display: flex;
   justify-content: center;

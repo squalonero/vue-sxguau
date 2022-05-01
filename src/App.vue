@@ -42,4 +42,17 @@ body {
   flex-basis: 100%;
   height: 0;
 }
+.buttonWrapper svg {
+  padding: 5px;
+  background-color: #fff;
+  color: #666;
+  margin: 0 5px;
+  transition: 250ms;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.buttonWrapper svg:hover {
+  background-color: #f3f3f3;
+  color: #333;
+}
 </style>
