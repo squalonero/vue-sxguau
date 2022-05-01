@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Ammalato",
+    "front": "https://static.wikia.nocookie.net/descent2e/images/9/9a/Diseased_-_Front.png/revision/latest?cb=20140613140629",
+    "back": "https://static.wikia.nocookie.net/descent2e/images/7/7e/Diseased_-_Back.png/revision/latest?cb=20140613140601"
+  },
+  {
+    "name": "Immobilizzato",
+    "front": "https://static.wikia.nocookie.net/descent2e/images/9/9a/Diseased_-_Front.png/revision/latest?cb=20140613140629",
+    "back": "https://static.wikia.nocookie.net/descent2e/images/7/7e/Diseased_-_Back.png/revision/latest?cb=20140613140601"
+  },
+  {
+    "name": "Avvelenato",
+    "front": "https://static.wikia.nocookie.net/descent2e/images/9/9a/Diseased_-_Front.png/revision/latest?cb=20140613140629",
+    "back": "https://static.wikia.nocookie.net/descent2e/images/7/7e/Diseased_-_Back.png/revision/latest?cb=20140613140601"
+  },
+  {
+    "name": "Stordito",
+    "front": "https://static.wikia.nocookie.net/descent2e/images/9/9a/Diseased_-_Front.png/revision/latest?cb=20140613140629",
+    "back": "https://static.wikia.nocookie.net/descent2e/images/7/7e/Diseased_-_Back.png/revision/latest?cb=20140613140601"
+  },
+  {
+    "name": "Infiammato",
+    "front": "https://static.wikia.nocookie.net/descent2e/images/9/9a/Diseased_-_Front.png/revision/latest?cb=20140613140629",
+    "back": "https://static.wikia.nocookie.net/descent2e/images/7/7e/Diseased_-_Back.png/revision/latest?cb=20140613140601"
+  },
+  {
+    "name": "Condannato",
+    "front": "https://static.wikia.nocookie.net/descent2e/images/9/9a/Diseased_-_Front.png/revision/latest?cb=20140613140629",
+    "back": "https://static.wikia.nocookie.net/descent2e/images/7/7e/Diseased_-_Back.png/revision/latest?cb=20140613140601"
+  },
+  {
+    "name": "Indebolito",
+    "front": "https://static.wikia.nocookie.net/descent2e/images/9/9a/Diseased_-_Front.png/revision/latest?cb=20140613140629",
+    "back": "https://static.wikia.nocookie.net/descent2e/images/7/7e/Diseased_-_Back.png/revision/latest?cb=20140613140601"
+  },
+  {
+    "name": "Sanguinamento",
+    "front": "https://static.wikia.nocookie.net/descent2e/images/9/9a/Diseased_-_Front.png/revision/latest?cb=20140613140629",
+    "back": "https://static.wikia.nocookie.net/descent2e/images/7/7e/Diseased_-_Back.png/revision/latest?cb=20140613140601"
+  },
+  {
+    "name": "Maledetto",
+    "front": "https://static.wikia.nocookie.net/descent2e/images/9/9a/Diseased_-_Front.png/revision/latest?cb=20140613140629",
+    "back": "https://static.wikia.nocookie.net/descent2e/images/7/7e/Diseased_-_Back.png/revision/latest?cb=20140613140601"
+  },
+  {
+    "name": "Atterrito",
+    "front": "https://static.wikia.nocookie.net/descent2e/images/9/9a/Diseased_-_Front.png/revision/latest?cb=20140613140629",
+    "back": "https://static.wikia.nocookie.net/descent2e/images/7/7e/Diseased_-_Back.png/revision/latest?cb=20140613140601"
+  }
+]
