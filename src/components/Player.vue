@@ -26,12 +26,17 @@
           </div>
 
           <!-- Applied Conditions -->
-          <div v-for="(c, k) of conditions" :key="k" class="condition">
-            <div class="conditionName">{{ c }}</div>
-            <icon name="cross" @click="removeCondition(c)"></icon>
+          <div v-for="(condition, k) of conditions" :key="k" class="condition">
+            <div class="conditionName">{{ condition }}</div>
+            <div class="actionWrap">
+              <icon name="book" @click="readCondition(condition)"></icon>
+              <icon color="#b33641" name="cross" @click="removeCondition(condition)"></icon>
+            </div>
           </div>
         </div>
       </div>
+      <!--  Dice -->
+      <dice />
     </div>
   </div>
 </template>
@@ -40,13 +45,15 @@ import Stat from "./Stat.vue"
 import Ezselect from "./Form/Ezselect.vue"
 import { Conditions } from "../data/conditions.js"
 import Icon from "./Icon/Icon.vue"
+import Dice from './Dice.vue'
 
 export default {
   name: "Player",
   components: {
     Stat,
     Icon,
-    Ezselect
+    Ezselect,
+    Dice
   },
   props: {
     id: Number,
@@ -63,7 +70,7 @@ export default {
   mounted() {},
   methods: {
     getConditions() {
-      return Conditions.map((e) => {
+      return Conditions.sort((a, b) => a.name.localeCompare(b.name)).map((e) => {
         return { ...e }
       })
     },
@@ -73,17 +80,27 @@ export default {
     removeCondition(el) {
       this.conditions = this.conditions.filter((e) => e != el)
     },
-    randomCondition(){
-      let conditions = this.getConditions().map(el=>el.name)
-      let randomCondition = conditions[Math.floor(Math.random()*conditions.length)]
+    randomCondition() {
+      let conditions = this.getConditions().map((el) => el.name)
+      let randomCondition = conditions[Math.floor(Math.random() * conditions.length)]
       this.applyCondition(randomCondition)
+    },
+    readCondition(condition)
+    {
+      let cond = Conditions.find(e => e.name === condition);
+      this.$emit('modal:open', {
+          title: cond.name,
+          contents: [
+            cond.desc, cond.monster_desc
+          ],
+          images: cond.card
+        })
     }
   }
 }
 </script>
 <style scoped>
-.randomCondition svg
-{
+.randomCondition svg {
   background: #b33641;
   color: #fff;
 }
@@ -109,18 +126,20 @@ export default {
   gap: 30px;
 }
 .condition {
-  margin-top: 5px;
+  margin-top: 8px;
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 .condition svg {
-  color: #b33641;
   cursor: pointer;
 }
-.conditionsActions
+.condition .actionWrap > *
 {
+  margin: 0 5px;
+}
+.conditionsActions {
   display: flex;
   align-items: center;
 }

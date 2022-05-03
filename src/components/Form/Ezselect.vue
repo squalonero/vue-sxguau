@@ -109,8 +109,7 @@ select {
   position: relative;
   border-radius: 5px;
 }
-.ez_select_search_wrap
-{
+.ez_select_search_wrap {
   padding: 5px 8px;
 }
 .search,

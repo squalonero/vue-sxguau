@@ -30,13 +30,21 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
   color: #2c3e50;
   padding-top: 60px;
   padding: 1rem;
+  position: relative;
+  background-color: #000;
+
+}
+#app > #app::before{
+  content: '';
+  inset: 0;
+  position: fixed;
   background: url('https://i.pinimg.com/originals/8b/68/a5/8b68a5de2c9381a6666ec55ec1f40b6d.jpg');
   background-size: cover;
   background-repeat: no-repeat;
+  opacity: .3;
 }
 .flex-break {
   flex-basis: 100%;
