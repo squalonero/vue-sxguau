@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-import Player from './Player.vue';
+import Player from './Player.vue'
 import Modal from "./Modal.vue"
 
 export default {

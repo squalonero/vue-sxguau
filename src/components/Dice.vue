@@ -44,13 +44,13 @@
 export default {
   name: "Dice",
   props: {
-      top: Array,
-      bottom: Array,
-      front: Array,
-      back: Array,
-      left: Array,
-      right: Array,
-      },
+    top: Array,
+    bottom: Array,
+    front: Array,
+    back: Array,
+    left: Array,
+    right: Array
+  },
   data() {
     return {
       rollMax: 8,
