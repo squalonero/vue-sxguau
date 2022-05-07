@@ -14,7 +14,8 @@ export default {
   components: {
     Players,
   },
-  data() {
+  data()
+  {
     return {
       players: Heroes.heroes,
     };
@@ -26,7 +27,8 @@ export default {
 body {
   margin: 0;
 }
-#app > #app {
+
+#app>#app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -37,7 +39,8 @@ body {
   background-color: #000;
 
 }
-#app > #app::before{
+
+#app>#app::before {
   content: '';
   inset: 0;
   position: fixed;
@@ -46,10 +49,12 @@ body {
   background-repeat: no-repeat;
   opacity: .3;
 }
+
 .flex-break {
   flex-basis: 100%;
   height: 0;
 }
+
 .buttonWrapper svg {
   padding: 5px;
   background-color: #fff;
@@ -59,15 +64,18 @@ body {
   cursor: pointer;
   border-radius: 5px;
 }
+
 .buttonWrapper svg:hover {
   background-color: #f3f3f3;
   color: #333;
 }
+
 .buttonWrapper {
   display: flex;
   justify-content: center;
 }
-.d-flex{
+
+.d-flex {
   display: flex;
 }
 </style>

@@ -1,7 +1,7 @@
 <template></template>
 <script>
 export default {
-  name: '',
+  name: '_template',
   props: {},
 };
 </script>

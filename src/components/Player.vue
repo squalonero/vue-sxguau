@@ -36,7 +36,7 @@
         </div>
       </div>
       <!--  Dice -->
-      <dice />
+      <dice tpl="blue" />
     </div>
   </div>
 </template>
@@ -45,7 +45,7 @@ import Stat from "./Stat.vue"
 import Ezselect from "./Form/Ezselect.vue"
 import { Conditions } from "../data/conditions.js"
 import Icon from "./Icon/Icon.vue"
-import Dice from './Dice.vue'
+import Dice from './Dice/Dice.vue'
 
 export default {
   name: "Player",
@@ -53,7 +53,7 @@ export default {
     Stat,
     Icon,
     Ezselect,
-    Dice
+    Dice,
   },
   props: {
     id: Number,

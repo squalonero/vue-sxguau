@@ -2,38 +2,11 @@
   <div class="diceWrapper">
     <div class="dice-container" @click="canRoll && roll()">
       <div class="dice" ref="dice">
-        <div class="face top" data-id="1">
-          <div v-if="!top" class="point point-middle point-center"></div>
-        </div>
-        <div class="face back" data-id="2">
-          <div v-if="!back" class="point point-top point-right"></div>
-          <div v-if="!back" class="point point-bottom point-left"></div>
-        </div>
-        <div class="face bottom" data-id="6">
-          <div v-if="!bottom" class="point point-top point-right"></div>
-          <div v-if="!bottom" class="point point-middle point-right"></div>
-          <div v-if="!bottom" class="point point-top point-left"></div>
-          <div v-if="!bottom" class="point point-middle point-left"></div>
-          <div v-if="!bottom" class="point point-bottom point-right"></div>
-          <div v-if="!bottom" class="point point-bottom point-left"></div>
-        </div>
-        <div class="face front" data-id="5">
-          <div v-if="!front" class="point point-top point-right"></div>
-          <div v-if="!front" class="point point-top point-left"></div>
-          <div v-if="!front" class="point point-middle point-center"></div>
-          <div v-if="!front" class="point point-bottom point-right"></div>
-          <div v-if="!front" class="point point-bottom point-left"></div>
-        </div>
-        <div class="face left" data-id="3">
-          <div v-if="!left" class="point point-top point-right"></div>
-          <div v-if="!left" class="point point-middle point-center"></div>
-          <div v-if="!left" class="point point-bottom point-left"></div>
-        </div>
-        <div class="face right" data-id="4">
-          <div v-if="!right" class="point point-top point-right"></div>
-          <div v-if="!right" class="point point-top point-left"></div>
-          <div v-if="!right" class="point point-bottom point-right"></div>
-          <div v-if="!right" class="point point-bottom point-left"></div>
+        <div v-for="(face,pos) in template.schema" :key="pos" class="face" :class="`${pos} ${template.background}-bg`" data-id="">
+           <div v-for="(dotClass, k) of face" :key="k" :class="dotClass[1]">
+            <icon v-if="typeof dotClass[0] === 'string' " :name="dotClass[0]" :size="50" :color="template.color" />
+            <div v-else class="number" :style="`color: ${template.color};`">{{ dotClass[0] }}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -41,31 +14,74 @@
   </div>
 </template>
 <script>
+import { Dices } from './Dices';
+import Icon from '../Icon/Icon.vue';
+
 export default {
-  name: "Dice",
-  props: {
-    top: Array,
-    bottom: Array,
-    front: Array,
-    back: Array,
-    left: Array,
-    right: Array
+  name: 'Dice',
+  components: {
+    Icon
   },
-  data() {
+  props: {
+    tpl: {
+      type: String,
+      default: 'default'
+    },
+  },
+  created()
+  {
+    this.template = Dices[this.tpl];
+  },
+  watch: {
+    template: {
+      handler(v) { return v },
+      deep: true
+    }
+  },
+  data()
+  {
     return {
       rollMax: 8,
       angleX: 0,
       angleY: 0,
       result: 1,
       delay: 0,
-      canRoll: true
+      canRoll: true,
+      defaultTemplate: {
+        top: ['point point-middle point-center'],
+        bottom: [
+          'point point-top point-right',
+          'point point-top point-right',
+          'point point-middle point-right',
+          'point point-top point-left',
+          'point point-middle point-left',
+          'point point-bottom point-right',
+          'point point-top point-right',
+          'point point-top point-right',
+          'point point-bottom point-left'
+        ],
+        front: ['point point-top point-right', 'point point-top point-left', 'point point-middle point-center', 'point point-bottom point-right', 'point point-bottom point-left'],
+        back: ['point point-top point-right', 'point point-bottom point-left'],
+        left: ['point point-top point-right', 'point point-middle point-center', 'point point-bottom point-left'],
+        right: ['point point-top point-right', 'point point-top point-left', 'point point-bottom point-right', 'point point-bottom point-left']
+      },
+      template: {}
     }
   },
   methods: {
-    getRandomInt(max) {
+    getClasses(classes)
+    {
+      if(typeof classes[0] === 'string')
+        return classes.join(' ')
+
+      return classes[1]
+    },
+    getRandomInt(max)
+    {
       return Math.floor(Math.random() * max)
     },
-    roll() {
+    roll()
+    {
       this.canRoll = false
 
       const xTurn = 4 + this.getRandomInt(this.rollMax),
@@ -77,19 +93,22 @@ export default {
       this.angleY += 90 * yTurn
 
       // balancing the results
-      if (this.angleX % 180) {
+      if (this.angleX % 180)
+      {
         this.getRandomInt(3) > 1 && (this.angleX += 90)
       }
 
-      this.$refs.dice.style.transform = "rotateX(" + this.angleX + "deg) rotateY(" + this.angleY + "deg)"
-      this.$refs.dice.style.transitionDuration = this.delay + "ms"
+      this.$refs.dice.style.transform = 'rotateX(' + this.angleX + 'deg) rotateY(' + this.angleY + 'deg)'
+      this.$refs.dice.style.transitionDuration = this.delay + 'ms'
 
       let x = this.angleX % 360,
         y = this.angleY % 360
 
       let result
-      if (x === 0 || x === 180) {
-        switch ((x + y) % 360) {
+      if (x === 0 || x === 180)
+      {
+        switch ((x + y) % 360)
+        {
           case 0:
             result = 1
             break
@@ -105,12 +124,14 @@ export default {
           default:
             console.error(123456)
         }
-      } else if (x === 90) {
+      } else if (x === 90)
+      {
         result = 4
-      } else if (x === 270) {
+      } else if (x === 270)
+      {
         result = 3
       }
-      console.log("result:", result)
+      console.log('result:', result)
       setTimeout(() => (this.canRoll = true), this.delay)
       return result
     }
@@ -132,7 +153,10 @@ body {
   align-items: center;
   justify-content: space-evenly;
 } */
-
+.number
+{
+  font-size: 4rem;
+}
 .dice-container {
   width: 25vmin;
   aspect-ratio: 1;
@@ -146,19 +170,27 @@ body {
   border-radius: 1vmin;
   transform-style: preserve-3d;
   transform-origin: 50% 50% -12.5vmin;
-  transform: rotateX(180deg) rotateY(180deg);
+  /* transform: rotateX(180deg) rotateY(180deg); */
   transition: transform 2s ease-in-out;
 }
 
 .face {
   position: absolute;
-  background: radial-gradient(circle at center, #eee, #ccc);
   width: 25vmin;
   aspect-ratio: 1;
   border-radius: 1vmin;
   transform: rotateX(0deg) rotateY(180deg);
   transform-origin: 50% 50% -12.5vmin;
   /*backface-visibility: hidden;*/
+}
+.default-bg{
+  background: radial-gradient(circle at center, #eee, #ccc);
+}
+.red-bg{
+  background: radial-gradient(circle at center, rgb(177, 0, 0), rgb(94, 0, 0));
+}
+.blue-bg{
+  background: radial-gradient(circle at center, rgb(0, 0, 196), rgb(0, 0, 133));
 }
 
 .face:nth-child(1) {
@@ -185,13 +217,16 @@ body {
   transform: rotateX(270deg);
 }
 
-.point {
+.face>div {
   position: absolute;
   width: 5vmin;
   aspect-ratio: 1;
-  border-radius: 100%;
   align-self: center;
   justify-self: center;
+}
+
+.point {
+  border-radius: 100%;
   background: #444;
   box-shadow: inset 5px 0 10px #222;
 }
