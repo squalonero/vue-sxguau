@@ -2,14 +2,14 @@
   <div class="diceWrapper">
     <div class="dice-container" :style="`width: ${ width }vmin`">
       <div class="dice" ref="dice" :style="`width: ${ width }vmin`">
-        <!-- <div v-for="(face, pos) in template.schema" :key="pos" class="face"
+        <div v-for="(face, pos) in template.schema" :key="pos" class="face"
           :class="`${ pos } ${ template.background }-bg`"
           data-id="" :style="`width: ${ width }vmin`">
-          <div v-for="(dotClass, k) of face" :key="k" :class="dotClass[1]">
-            <icon v-if="typeof dotClass[0] === 'string'" :name="dotClass[0]" :size="50" :color="template.color" />
-            <div v-else class="number" :style="`color: ${ template.color };`">{{ dotClass[0] }}</div>
+          <div v-for="(dotClass, k) of face" :key="k" :class="dotClass[1]" :style="dotStylePosition(dotClass[1])">
+            <icon v-if="typeof dotClass[0] === 'string'" :name="dotClass[0]" :size="width * 2" :color="template.color" />
+            <div v-else class="number" :style="`color: ${ template.color }; font-size:${width/4}rem`">{{ dotClass[0] }}</div>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -35,16 +35,21 @@ export default {
   },
   created()
   {
-    this.template = Dices.filter(({name, ...rest})=>{
+    this.template = Dices.filter(({ name, ...rest }) =>
+    {
       return name === this.tpl
     })
-    .reduce((acc, {schema, ...rest})=>{
-      return {
-          schema: Object.values(schema).filter(e=>e.length>0), //get first nonEmpty face
+      .reduce((acc, { schema: { ...faces }, ...rest }) =>
+      {
+        return {
+          schema: {
+            [Object.keys(faces).find(f => faces[f].length > 0)]: Object.values(faces).find(f => f.length > 0), //get first nonEmpty face
+          },
           ...rest
-          }
-    },{})
-  console.log(this.template)
+        }
+
+      }, {})
+    console.log(this.template)
   },
   watch: {
     template: {
@@ -58,9 +63,54 @@ export default {
       template: {}
     }
   },
+  methods: {
+    dotStylePosition(classes) {
+      classes = classes.replaceAll('point-', '').split(' ');
+      let positions = classes.reduce((acc,pos)=>{
+        let cssPos = pos;
+        if(['middle', 'center'].includes(pos))
+        {
+          cssPos = (pos==='middle') ? 'top' : 'left'
+        }
+        return {
+          ...acc,
+          [cssPos]: (['top', 'bottom', 'left', 'right'].includes(pos) ? this.width/10 : this.width*10/25)+'vmin'
+        }
+      }, {})
+
+      return {
+        width: `${this.width/5}vmin`,
+        ...positions
+      }
+    }
+  }
 };
 </script>
 <style scoped>
+/** Default DostylePosition */
+.point-top {
+  top: 2.5vmin;
+}
+
+.point-middle {
+  top: 10vmin;
+}
+
+.point-bottom {
+  bottom: 2.5vmin;
+}
+
+.point-left {
+  left: 2.5vmin;
+}
+
+.point-center {
+  left: 10vmin;
+}
+
+.point-right {
+  right: 2.5vmin;
+}
 .number {
   font-size: 4rem;
 }
@@ -139,7 +189,6 @@ export default {
 
 .face>div {
   position: absolute;
-  width: 5vmin;
   aspect-ratio: 1;
   align-self: center;
   justify-self: center;
@@ -151,29 +200,6 @@ export default {
   box-shadow: inset 5px 0 10px #222;
 }
 
-.point-top {
-  top: 2.5vmin;
-}
-
-.point-middle {
-  top: 10vmin;
-}
-
-.point-bottom {
-  bottom: 2.5vmin;
-}
-
-.point-left {
-  left: 2.5vmin;
-}
-
-.point-center {
-  left: 10vmin;
-}
-
-.point-right {
-  right: 2.5vmin;
-}
 
 .roll-btn {
   padding: 1vmin 1.5vmin;

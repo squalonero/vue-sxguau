@@ -1,16 +1,16 @@
 <template>
     <!--  Dice -->
-    <dice tpl="blue" />
-    <dice tpl="red" />
+    <dice tpl="blue" :width="10" />
+    <!-- <dice tpl="red" />
     <dice tpl="grey" />
     <dice tpl="black" />
-    <dice tpl="brown" />
+    <dice tpl="brown" /> -->
 
-    <!-- <dice-sample :width="10" tpl="blue" /> -->
-    <!-- <dice-sample :width="10" tpl="red" />
+    <dice-sample :width="10" tpl="blue" />
+    <dice-sample :width="10" tpl="red" />
     <dice-sample :width="10" tpl="grey" />
     <dice-sample :width="10" tpl="black" />
-    <dice-sample :width="10" tpl="brown" /> -->
+    <dice-sample :width="10" tpl="brown" />
 </template>
 <script>
 import Dice from './Dice/Dice.vue'

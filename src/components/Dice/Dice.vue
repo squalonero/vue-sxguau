@@ -1,11 +1,15 @@
 <template>
   <div class="diceWrapper">
-    <div class="dice-container" @click="canRoll && roll()">
-      <div class="dice" ref="dice">
-        <div v-for="(face,pos) in template.schema" :key="pos" class="face" :class="`${pos} ${template.background}-bg`" data-id="">
-           <div v-for="(dotClass, k) of face" :key="k" :class="dotClass[1]">
-            <icon v-if="typeof dotClass[0] === 'string' " :name="dotClass[0]" :size="50" :color="template.color" />
-            <div v-else class="number" :style="`color: ${template.color};`">{{ dotClass[0] }}</div>
+    <div class="dice-container" :style="`width: ${ width }vmin`" @click="canRoll && roll()">
+      <div class="dice" ref="dice" :style="`width: ${ width }vmin`">
+        <div v-for="(face, pos) in template.schema" :key="pos" class="face"
+          :class="`${ pos } ${ template.background }-bg`"
+          data-id="" :style="faceStyle()">
+          <div v-for="(dotClass, k) of face" :key="k" :class="dotClass[1]" :style="dotStylePosition(dotClass[1])">
+            <icon v-if="typeof dotClass[0] === 'string'" :name="dotClass[0]" :size="width * 2"
+              :color="template.color" />
+            <div v-else class="number" :style="`color: ${ template.color }; font-size:${ width / 4 }rem`">{{ dotClass[0] }}
+            </div>
           </div>
         </div>
       </div>
@@ -27,13 +31,18 @@ export default {
       type: String,
       default: 'default'
     },
+    width: {
+      type: Number,
+      default: 25
+    }
   },
   created()
   {
-    this.template = Dices.find(({name, ...rest})=>{
-      if(name === this.tpl) return {name, ...rest}
+    this.template = Dices.find(({ name, ...rest }) =>
+    {
+      if (name === this.tpl) return { name, ...rest }
     });
-    console.log(this.template)
+    // console.log(this.template)
   },
   watch: {
     template: {
@@ -72,9 +81,36 @@ export default {
     }
   },
   methods: {
+    dotStylePosition(classes)
+    {
+      classes = classes.replaceAll('point-', '').split(' ');
+      let positions = classes.reduce((acc, pos) =>
+      {
+        let cssPos = pos;
+        if (['middle', 'center'].includes(pos))
+        {
+          cssPos = (pos === 'middle') ? 'top' : 'left'
+        }
+        return {
+          ...acc,
+          [cssPos]: (['top', 'bottom', 'left', 'right'].includes(pos) ? this.width / 10 : this.width * 10 / 25) + 'vmin'
+        }
+      }, {})
+
+      return {
+        width: `${ this.width / 5 }vmin`,
+        ...positions
+      }
+    },
+    faceStyle(){
+      return {
+        width: `${ this.width }vmin`,
+        "transform-origin": `50% 50% ${-12.5*this.width/25}vmin`
+      }
+    },
     getClasses(classes)
     {
-      if(typeof classes[0] === 'string')
+      if (typeof classes[0] === 'string')
         return classes.join(' ')
 
       return classes[1]
@@ -98,7 +134,7 @@ export default {
       // balancing the results
       if (this.angleX % 180)
       {
-        this.getRandomInt(3) > 1 && (this.angleX += 90)
+        this.getRandomInt(4) > 1 && (this.angleX += 90)
       }
 
       this.$refs.dice.style.transform = 'rotateX(' + this.angleX + 'deg) rotateY(' + this.angleY + 'deg)'
@@ -142,10 +178,10 @@ export default {
 }
 </script>
 <style scoped>
-.number
-{
+.number {
   font-size: 4rem;
 }
+
 .dice-container {
   width: 25vmin;
   aspect-ratio: 1;
@@ -172,22 +208,28 @@ export default {
   transform-origin: 50% 50% -12.5vmin;
   /*backface-visibility: hidden;*/
 }
-.default-bg{
+
+.default-bg {
   background: radial-gradient(circle at center, #eee, #ccc);
 }
-.red-bg{
+
+.red-bg {
   background: radial-gradient(circle at center, rgb(177, 0, 0), rgb(94, 0, 0));
 }
-.brown-bg{
+
+.brown-bg {
   background: radial-gradient(circle at center, rgb(87, 52, 0), rgb(53, 32, 1));
 }
-.black-bg{
+
+.black-bg {
   background: radial-gradient(circle at center, rgb(19, 19, 19), rgb(0, 0, 0));
 }
-.blue-bg{
+
+.blue-bg {
   background: radial-gradient(circle at center, rgb(0, 0, 196), rgb(0, 0, 133));
 }
-.yellow-bg{
+
+.yellow-bg {
   background: radial-gradient(circle at center, rgb(218, 196, 0), rgb(218, 185, 0));
 }
 
