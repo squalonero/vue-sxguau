@@ -1,5 +1,5 @@
 <template>
-  <div class="players">
+  <div class="Board">
     <div v-for="(heroData, k) in players" :key="k">
       <player :id="k" :data="heroData" @modal:open="modalOpen"/>
     </div>
@@ -12,7 +12,7 @@ import Player from './Player.vue'
 import Modal from "./Modal.vue"
 
 export default {
-  name: 'Players',
+  name: 'Board',
   components: {
     Player, Modal
   },

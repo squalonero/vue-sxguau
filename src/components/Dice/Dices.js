@@ -1,5 +1,38 @@
-export const Dices = {
-  blue: {
+export const Dices = [
+  {
+    name: 'yellow',
+    background: 'yellow',
+    color: 'black',
+    schema: {
+      top: [
+        ['heart', "point-top point-right"],
+        ['heart', "point-middle point-right"],
+        ['power', "point-bottom point-left"],
+      ],
+      bottom: [
+        [1, "point-top point-left"],
+        ['heart', "point-middle point-center"],
+      ],
+      front: [
+        [2, "point-top point-left"],
+        ['heart', "point-middle point-center"],
+      ],
+      back: [
+        ['heart', "point-top point-right"],
+        ['power', "point-bottom point-left"],
+      ],
+      left: [
+        [1, "point-top point-left"],
+        ['power', "point-middle point-center"],
+      ],
+      right: [
+        ['heart', "point-top point-right"],
+        ['heart', "point-bottom point-left"],
+      ]
+    }
+  },
+  {
+    name: 'blue',
     background: 'blue',
     color: 'white',
     schema: {
@@ -24,19 +57,17 @@ export const Dices = {
         ['heart', "point-middle point-right"],
       ],
       left: [
-        ['shield', "point-top point-left"],
-        ['shield', "point-top point-right"],
-        ['shield', "point-bottom point-left"],
-        ['shield', "point-bottom point-right"],
+        ['cross', "point-middle point-center"],
       ],
       right: [
-        ['shield', "point-top point-left"],
-        ['shield', "point-top point-right"],
-        ['shield', "point-bottom point-center"],
+        [4, "point-top point-left"],
+        ['heart', "point-top point-right"],
+        ['heart', "point-middle point-right"],
       ]
     }
   },
-  black: {
+  {
+    name: 'black',
     background: 'black',
     color: 'white',
     schema: {
@@ -67,7 +98,8 @@ export const Dices = {
       ]
     }
   },
-  brown: {
+  {
+    name: 'brown',
     background: 'brown',
     color: 'white',
     schema: {
@@ -89,7 +121,8 @@ export const Dices = {
       ]
     }
   },
-  grey: {
+  {
+    name: 'grey',
     background: 'default',
     color: 'black',
     schema: {
@@ -115,7 +148,8 @@ export const Dices = {
       ]
     }
   },
-  red: {
+  {
+    name: 'red',
     background: 'red',
     color: 'white',
     schema: {
@@ -147,7 +181,8 @@ export const Dices = {
       ]
     }
   },
-  default: {
+  {
+    name: 'default',
     background: 'default',
     color: '#444',
     schema: {
@@ -189,4 +224,4 @@ export const Dices = {
       ]
     }
   }
-}
+]

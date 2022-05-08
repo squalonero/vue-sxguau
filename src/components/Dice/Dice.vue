@@ -30,7 +30,10 @@ export default {
   },
   created()
   {
-    this.template = Dices[this.tpl];
+    this.template = Dices.find(({name, ...rest})=>{
+      if(name === this.tpl) return {name, ...rest}
+    });
+    console.log(this.template)
   },
   watch: {
     template: {
@@ -139,20 +142,6 @@ export default {
 }
 </script>
 <style scoped>
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  min-height: 100vh;
-  background: #222;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-} */
 .number
 {
   font-size: 4rem;
@@ -189,8 +178,17 @@ body {
 .red-bg{
   background: radial-gradient(circle at center, rgb(177, 0, 0), rgb(94, 0, 0));
 }
+.brown-bg{
+  background: radial-gradient(circle at center, rgb(87, 52, 0), rgb(53, 32, 1));
+}
+.black-bg{
+  background: radial-gradient(circle at center, rgb(19, 19, 19), rgb(0, 0, 0));
+}
 .blue-bg{
   background: radial-gradient(circle at center, rgb(0, 0, 196), rgb(0, 0, 133));
+}
+.yellow-bg{
+  background: radial-gradient(circle at center, rgb(218, 196, 0), rgb(218, 185, 0));
 }
 
 .face:nth-child(1) {

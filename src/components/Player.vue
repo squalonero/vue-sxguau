@@ -35,8 +35,6 @@
           </div>
         </div>
       </div>
-      <!--  Dice -->
-      <dice tpl="blue" />
     </div>
   </div>
 </template>

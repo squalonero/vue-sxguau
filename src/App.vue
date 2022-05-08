@@ -1,18 +1,20 @@
 <template>
   <div id="app">
-    <players :players="players"></players>
+    <board :players="players"></board>
+    <side-panel></side-panel>
   </div>
 </template>
 
 <script>
-import Players from './components/Players.vue';
+import Board from './components/Board.vue';
+import SidePanel from './components/SidePanel.vue';
 import Heroes from './data/heroes.json';
 import AppConfig from './app.config.json';
 
 export default {
   name: 'App',
   components: {
-    Players,
+    Board, SidePanel
   },
   data()
   {
@@ -37,6 +39,8 @@ body {
   padding: 1rem;
   position: relative;
   background-color: #000;
+  display: flex;
+
 
 }
 
