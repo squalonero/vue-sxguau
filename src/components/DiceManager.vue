@@ -1,16 +1,16 @@
 <template>
     <!--  Dice -->
     <div class="pick">
-        <h3>Scegli un dado:</h3>
+        <h3>Aggiungi dadi:</h3>
         <div class="dice-sample-wrap" v-for="(dice, k) of availableDices" :key="k" @click="addDice(dice.name)">
             <dice-sample :width="5" :tpl="dice.name" />
         </div>
+        <div class="roll-all" @click="rollAll">Tira i dadi</div>
+        <div class="reset" @click="reset">Reset</div>
     </div>
     <div class="roll">
         <dice v-for="(dice, k) of dices" :key="k" :tpl="dice" :width="10" ref="dice" />
     </div>
-    <div class="roll-all" @click="rollAll">Tira i dadi</div>
-    <div class="reset" @click="reset">Reset</div>
 </template>
 <script>
 import { Dices } from './Dice/Dices'
@@ -28,7 +28,7 @@ export default {
     data()
     {
         return {
-            availableDices: Dices.filter(({ name, ...rest }) => { return name != 'default' }),
+            availableDices: Dices, //.filter(({ name, ...rest }) => { return name != 'default' }),
             dices: []
         }
     },
@@ -39,7 +39,7 @@ export default {
         },
         rollAll()
         {
-            this.$refs?.dice?.forEach(dice=>dice.roll())
+            this.$refs?.dice?.forEach(dice => dice.roll())
         },
         reset()
         {
@@ -49,28 +49,33 @@ export default {
 }
 </script>
 <style scoped>
-.pick h3{
+.pick h3 {
     color: #fff;
 }
+
 .pick {
     display: flex;
     align-items: center;
+    padding: 10px;
+    gap: 10px;
+    flex-wrap: wrap;
 }
-.dice-sample-wrap
-{
+
+.dice-sample-wrap {
     margin: 0 10px;
 }
-.roll
-{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+
+.roll {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
     position: relative;
     padding: 10px;
 }
+
 .roll-all,
-.reset{
+.reset {
     position: relative;
     cursor: pointer;
     display: inline;

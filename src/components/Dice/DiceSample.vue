@@ -3,8 +3,7 @@
     <div class="dice-container" :style="`width: ${ width }vmin`">
       <div class="dice" ref="dice" :style="`width: ${ width }vmin`">
         <div v-for="(face, pos) in template.schema" :key="pos" class="face"
-          :class="`${ pos } ${ template.background }-bg`"
-          data-id="" :style="`width: ${ width }vmin`">
+          :class="`${ pos } ${ template.background }-bg`" :style="`width: ${ width }vmin`">
           <div v-for="(dotClass, k) of face" :key="k" :class="dotClass[1]" :style="dotStylePosition(dotClass[1])">
             <icon v-if="typeof dotClass[0] === 'string'" :name="dotClass[0]" :size="width * 2" :color="template.color" />
             <div v-else class="number" :style="`color: ${ template.color }; font-size:${width/4}rem`">{{ dotClass[0] }}</div>
@@ -60,7 +59,7 @@ export default {
   data()
   {
     return {
-      template: {}
+      template: {},
     }
   },
   methods: {
@@ -144,19 +143,19 @@ export default {
 }
 
 .red-bg {
-  background: radial-gradient(circle at center, rgb(177, 0, 0), rgb(94, 0, 0));
+  background: radial-gradient(circle at center, rgb(190, 0, 0), rgb(160, 0, 0));
 }
 
 .brown-bg {
-  background: radial-gradient(circle at center, rgb(87, 52, 0), rgb(53, 32, 1));
+  background: radial-gradient(circle at center, rgb(102, 63, 4),rgb(71, 44, 4));
 }
 
 .black-bg {
-  background: radial-gradient(circle at center, rgb(19, 19, 19), rgb(0, 0, 0));
+  background: radial-gradient(circle at center, rgb(19, 19, 19), rgb(29, 29, 29));
 }
 
 .blue-bg {
-  background: radial-gradient(circle at center, rgb(0, 0, 196), rgb(0, 0, 133));
+  background: radial-gradient(circle at center, rgb(15, 9, 100), rgb(4, 4, 138));
 }
 
 .yellow-bg {

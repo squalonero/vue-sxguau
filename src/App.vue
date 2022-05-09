@@ -1,8 +1,7 @@
 <template>
   <div id="vue">
-    <!-- <board :players="players"></board>
-    <side-panel></side-panel> -->
-    <test></test>
+    <board :players="players"></board>
+    <side-panel></side-panel>
   </div>
 </template>
 
@@ -11,13 +10,11 @@ import Board from './components/Board.vue';
 import SidePanel from './components/SidePanel.vue';
 import Heroes from './data/heroes.json';
 import AppConfig from './app.config.json';
-import Test from './data/Test.vue';
 
 export default {
   name: 'App',
   components: {
     Board, SidePanel,
-    Test
   },
   data()
   {

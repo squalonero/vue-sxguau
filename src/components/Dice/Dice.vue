@@ -8,7 +8,8 @@
           <div v-for="(dotClass, k) of face" :key="k" :class="dotClass[1]" :style="dotStylePosition(dotClass[1])">
             <icon v-if="typeof dotClass[0] === 'string'" :name="dotClass[0]" :size="width * 2"
               :color="template.color" />
-            <div v-else class="number" :style="`color: ${ template.color }; font-size:${ width / 4 }rem`">{{ dotClass[0] }}
+            <div v-else class="number" :style="`color: ${ template.color }; font-size:${ width / 4 }rem`">
+              {{ dotClass[0] }}
             </div>
           </div>
         </div>
@@ -41,14 +42,14 @@ export default {
     this.template = Dices.find(({ name, ...rest }) =>
     {
       if (name === this.tpl) return { name, ...rest }
-    });
+    }) || this.defaultTemplate;
   },
   watch: {
     template: {
       handler(v) { return v },
       deep: true
     },
-    canRoll: (v)=>{return v}
+    canRoll: (v) => { return v }
   },
   data()
   {
@@ -59,6 +60,14 @@ export default {
       result: 1,
       delay: 0,
       canRoll: false,
+      resultMap: [
+        [1, ''],
+        [2, ''],
+        [3, ''],
+        [4, ''],
+        [5, ''],
+        [6, '']
+      ],
       defaultTemplate: {
         top: ['point point-middle point-center'],
         bottom: [
@@ -102,10 +111,11 @@ export default {
         ...positions
       }
     },
-    faceStyle(){
+    faceStyle()
+    {
       return {
         width: `${ this.width }vmin`,
-        "transform-origin": `50% 50% ${-12.5*this.width/25}vmin`
+        "transform-origin": `50% 50% ${ -12.5 * this.width / 25 }vmin`
       }
     },
     getClasses(classes)
@@ -214,19 +224,19 @@ export default {
 }
 
 .red-bg {
-  background: radial-gradient(circle at center, rgb(177, 0, 0), rgb(94, 0, 0));
+  background: radial-gradient(circle at center, rgb(190, 0, 0), rgb(160, 0, 0));
 }
 
 .brown-bg {
-  background: radial-gradient(circle at center, rgb(87, 52, 0), rgb(53, 32, 1));
+  background: radial-gradient(circle at center, rgb(102, 63, 4), rgb(71, 44, 4));
 }
 
 .black-bg {
-  background: radial-gradient(circle at center, rgb(19, 19, 19), rgb(0, 0, 0));
+  background: radial-gradient(circle at center, rgb(19, 19, 19), rgb(29, 29, 29));
 }
 
 .blue-bg {
-  background: radial-gradient(circle at center, rgb(0, 0, 196), rgb(0, 0, 133));
+  background: radial-gradient(circle at center, rgb(15, 9, 100), rgb(4, 4, 138));
 }
 
 .yellow-bg {
