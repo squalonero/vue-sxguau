@@ -1,6 +1,6 @@
 <template>
   <div class="diceWrapper">
-    <div class="dice-container" :style="`width: ${ width }vmin`" @click="canRoll && roll()">
+    <div class="dice-container" :style="`width: ${ width }vmin`">
       <div class="dice" ref="dice" :style="`width: ${ width }vmin`">
         <div v-for="(face, pos) in template.schema" :key="pos" class="face"
           :class="`${ pos } ${ template.background }-bg`"
@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <button class="roll-btn" ref="rollbtn" @click="canRoll && roll()">ROLL</button>
+    <!-- <button class="roll-btn" ref="rollbtn" @click="canRoll && roll()">ROLL</button> -->
   </div>
 </template>
 <script>
@@ -42,13 +42,13 @@ export default {
     {
       if (name === this.tpl) return { name, ...rest }
     });
-    // console.log(this.template)
   },
   watch: {
     template: {
       handler(v) { return v },
       deep: true
-    }
+    },
+    canRoll: (v)=>{return v}
   },
   data()
   {
@@ -58,7 +58,7 @@ export default {
       angleY: 0,
       result: 1,
       delay: 0,
-      canRoll: true,
+      canRoll: false,
       defaultTemplate: {
         top: ['point point-middle point-center'],
         bottom: [
@@ -194,7 +194,7 @@ export default {
   aspect-ratio: 1;
   border-radius: 1vmin;
   transform-style: preserve-3d;
-  transform-origin: 50% 50% -12.5vmin;
+  transform-origin: 50% 50% -5vmin;
   /* transform: rotateX(180deg) rotateY(180deg); */
   transition: transform 2s ease-in-out;
 }
@@ -205,7 +205,7 @@ export default {
   aspect-ratio: 1;
   border-radius: 1vmin;
   transform: rotateX(0deg) rotateY(180deg);
-  transform-origin: 50% 50% -12.5vmin;
+  transform-origin: 50% 50% -5vmin;
   /*backface-visibility: hidden;*/
 }
 

@@ -35,6 +35,7 @@ export default {
   },
   created()
   {
+    //get the current dice template, only first face
     this.template = Dices.filter(({ name, ...rest }) =>
     {
       return name === this.tpl
@@ -49,7 +50,6 @@ export default {
         }
 
       }, {})
-    console.log(this.template)
   },
   watch: {
     template: {

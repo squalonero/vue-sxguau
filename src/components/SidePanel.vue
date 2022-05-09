@@ -23,6 +23,8 @@ export default {
 </script>
 <style scoped>
 .side {
+    position: relative;
+    z-index: 1;
     flex: 1;
     border: 1px solid #fff;
 }

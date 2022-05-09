@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="vue">
     <board :players="players"></board>
     <side-panel></side-panel>
   </div>
@@ -30,7 +30,7 @@ body {
   margin: 0;
 }
 
-#app>#app {
+#vue {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -44,7 +44,7 @@ body {
 
 }
 
-#app>#app::before {
+#vue::before {
   content: '';
   inset: 0;
   position: fixed;

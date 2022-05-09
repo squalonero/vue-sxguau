@@ -67,6 +67,39 @@ export const Dices = [
     }
   },
   {
+    name: 'red',
+    background: 'red',
+    color: 'white',
+    schema: {
+      top: [
+        ['heart', "point-middle point-center"]
+      ],
+      bottom: [
+        ['heart', "point-top point-left"],
+        ['heart', "point-bottom point-right"],
+      ],
+      front: [
+        ['heart', "point-top point-left"],
+        ['heart', "point-bottom point-right"],
+      ],
+      back: [
+        ['heart', "point-top point-right"],
+        ['heart', "point-middle point-center"],
+        ['heart', "point-bottom point-left"]
+      ],
+      left: [
+        ['heart', "point-top point-right"],
+        ['heart', "point-middle point-center"],
+        ['heart', "point-top point-left"],
+        ['power', "point-bottom point-center"],
+      ],
+      right: [
+        ['heart', "point-top point-left"],
+        ['heart', "point-bottom point-right"],
+      ]
+    }
+  },
+  {
     name: 'black',
     background: 'black',
     color: 'white',
@@ -145,39 +178,6 @@ export const Dices = [
         ['shield', "point-top point-left"],
         ['shield', "point-top point-right"],
         ['shield', "point-bottom point-center"],
-      ]
-    }
-  },
-  {
-    name: 'red',
-    background: 'red',
-    color: 'white',
-    schema: {
-      top: [
-        ['heart', "point-middle point-center"]
-      ],
-      bottom: [
-        ['heart', "point-top point-left"],
-        ['heart', "point-bottom point-right"],
-      ],
-      front: [
-        ['heart', "point-top point-left"],
-        ['heart', "point-bottom point-right"],
-      ],
-      back: [
-        ['heart', "point-top point-right"],
-        ['heart', "point-middle point-center"],
-        ['heart', "point-bottom point-left"]
-      ],
-      left: [
-        ['heart', "point-top point-right"],
-        ['heart', "point-middle point-center"],
-        ['heart', "point-top point-left"],
-        ['power', "point-bottom point-center"],
-      ],
-      right: [
-        ['heart', "point-top point-left"],
-        ['heart', "point-bottom point-right"],
       ]
     }
   },

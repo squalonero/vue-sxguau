@@ -1,40 +1,82 @@
 <template>
     <!--  Dice -->
-    <dice tpl="blue" :width="10" />
-    <!-- <dice tpl="red" />
-    <dice tpl="grey" />
-    <dice tpl="black" />
-    <dice tpl="brown" /> -->
-
-    <dice-sample :width="10" tpl="blue" />
-    <dice-sample :width="10" tpl="red" />
-    <dice-sample :width="10" tpl="grey" />
-    <dice-sample :width="10" tpl="black" />
-    <dice-sample :width="10" tpl="brown" />
+    <div class="pick">
+        <h3>Scegli un dado:</h3>
+        <div class="dice-sample-wrap" v-for="(dice, k) of availableDices" :key="k" @click="addDice(dice.name)">
+            <dice-sample :width="5" :tpl="dice.name" />
+        </div>
+    </div>
+    <div class="roll">
+        <dice v-for="(dice, k) of dices" :key="k" :tpl="dice" :width="10" ref="dice" />
+    </div>
+    <div class="roll-all" @click="rollAll">Tira i dadi</div>
+    <div class="reset" @click="reset">Reset</div>
 </template>
 <script>
+import { Dices } from './Dice/Dices'
 import Dice from './Dice/Dice.vue'
 import DiceSample from './Dice/DiceSample.vue'
 
 export default {
     name: 'DiceManager',
     components: {
-        Dice, DiceSample
+        'dice': Dice,
+        DiceSample
     },
     props: {
-        Dices: [
-            'blue',
-            'red',
-            'grey',
-            'brown',
-            'black',
-        ]
     },
-    setup()
+    data()
     {
-
+        return {
+            availableDices: Dices.filter(({ name, ...rest }) => { return name != 'default' }),
+            dices: []
+        }
     },
+    methods: {
+        addDice(name)
+        {
+            this.dices.push(name);
+        },
+        rollAll()
+        {
+            this.$refs?.dice?.forEach(dice=>dice.roll())
+        },
+        reset()
+        {
+            this.dices = [];
+        }
+    }
 }
 </script>
 <style scoped>
+.pick h3{
+    color: #fff;
+}
+.pick {
+    display: flex;
+    align-items: center;
+}
+.dice-sample-wrap
+{
+    margin: 0 10px;
+}
+.roll
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+    position: relative;
+    padding: 10px;
+}
+.roll-all,
+.reset{
+    position: relative;
+    cursor: pointer;
+    display: inline;
+    background: #fff;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 10px;
+}
 </style>
