@@ -74,7 +74,8 @@ export default {
   },
   data() {
     return {
-      rollMax: 12,
+      rollMax: 6,
+      rollMin: 2,
       angleX: 0,
       angleY: 0,
       result: 1,
@@ -157,46 +158,11 @@ export default {
 
       return classes[1]
     },
-    getRandomInt(max) {
-      return Math.floor(Math.random() * max)
+    getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min) + min);
     },
     getRandomFromArray(array) {
       return array[Math.floor(Math.random() * array.length)]
-    },
-    getResult() {
-      let a = [{ a: 0 }, { a: 1 }, { a: 2 }].find(({ a }) => {
-        return a == 2
-      })
-      console.log(a)
-      return
-      let found
-      while (typeof found === 'undefined') {
-        this.angleX = this.getRandomFromArray(this.resultMap)
-        this.angleY = this.getRandomFromArray([0, 90, 180, 270])
-        let found = this.resultMap.find(({ n, x, y }) => {
-          console.log(x)
-          return x == this.angleX && y == this.angleY
-        })
-        if (found) break
-      }
-
-      return new Promise((res, rej) => {
-        if (!found) {
-          setTimeout(() => {
-            if (found != 'undefined') {
-              console.log(`final result: ${found}`)
-              this.$refs.dice.style.transform =
-                'rotateX(' + this.angleX + 'deg) rotateY(' + this.angleY + 'deg)'
-              this.$refs.dice.style.transitionDuration = this.delay + 'ms'
-            }
-            console.log(`value found is: ${found} `)
-            res(this.getResult())
-          }, 200)
-        }
-        console.log(found)
-        this.canRoll = true
-        res(found)
-      })
     },
     roll() {
       /**
@@ -209,8 +175,8 @@ export default {
        */
       this.canRoll = false
 
-      const xTurn = this.getRandomInt(this.rollMax),
-        yTurn = this.getRandomInt(this.rollMax)
+      const xTurn = this.getRandomInt(this.rollMin, this.rollMax),
+        yTurn = this.getRandomInt(this.rollMin, this.rollMax)
 
       this.delay = Math.max(xTurn, yTurn) * 250
       let result = this.getRandomFromArray(this.resultMap)

@@ -9,7 +9,7 @@
         <div class="reset" @click="reset">Reset</div>
     </div>
     <div class="roll">
-        <dice v-for="(dice, k) of dices" :key="k" :tpl="dice" :width="10" ref="dice" />
+        <dice v-for="(dice, k) of dices" :key="k" :tpl="dice" :width="10" ref="dice" @result="catchResult" />
     </div>
 </template>
 <script>
@@ -44,6 +44,10 @@ export default {
         reset()
         {
             this.dices = [];
+        },
+        catchResult(result)
+        {
+            console.log(result)
         }
     }
 }
