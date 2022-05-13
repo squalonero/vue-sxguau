@@ -1,14 +1,32 @@
 <template>
   <div class="diceWrapper">
-    <div class="dice-container" :style="`width: ${ width }vmin`">
-      <div class="dice" ref="dice" :style="`width: ${ width }vmin`">
-        <div v-for="(face, pos) in template.schema" :key="pos" class="face"
-          :class="`${ pos } ${ template.background }-bg`"
-          data-id="" :style="faceStyle()">
-          <div v-for="(dotClass, k) of face" :key="k" :class="dotClass[1]" :style="dotStylePosition(dotClass[1])">
-            <icon v-if="typeof dotClass[0] === 'string'" :name="dotClass[0]" :size="width * 2"
-              :color="template.color" />
-            <div v-else class="number" :style="`color: ${ template.color }; font-size:${ width / 4 }rem`">
+    <div class="dice-container" :style="`width: ${width}vmin`">
+      <div class="dice" ref="dice" :style="`width: ${width}vmin`">
+        <div
+          v-for="(face, pos) in template.schema"
+          :key="pos"
+          class="face"
+          :class="`${pos} ${template.background}-bg`"
+          data-id=""
+          :style="faceStyle()"
+        >
+          <div
+            v-for="(dotClass, k) of face"
+            :key="k"
+            :class="dotClass[1]"
+            :style="dotStylePosition(dotClass[1])"
+          >
+            <icon
+              v-if="typeof dotClass[0] === 'string'"
+              :name="dotClass[0]"
+              :size="width * 2"
+              :color="template.color"
+            />
+            <div
+              v-else
+              class="number"
+              :style="`color: ${template.color}; font-size:${width / 4}rem`"
+            >
               {{ dotClass[0] }}
             </div>
           </div>
@@ -19,8 +37,8 @@
   </div>
 </template>
 <script>
-import { Dices } from './Dices';
-import Icon from '../Icon/Icon.vue';
+import { Dices } from './Dices'
+import Icon from '../Icon/Icon.vue'
 
 export default {
   name: 'Dice',
@@ -37,36 +55,38 @@ export default {
       default: 25
     }
   },
-  created()
-  {
-    this.template = Dices.find(({ name, ...rest }) =>
-    {
-      if (name === this.tpl) return { name, ...rest }
-    }) || this.defaultTemplate;
+  created() {
+    this.template =
+      Dices.find(({ name, ...rest }) => {
+        if (name === this.tpl) return { name, ...rest }
+      }) || this.defaultTemplate
   },
   watch: {
     template: {
-      handler(v) { return v },
+      handler(v) {
+        return v
+      },
       deep: true
     },
-    canRoll: (v) => { return v }
+    canRoll: (v) => {
+      return v
+    }
   },
-  data()
-  {
+  data() {
     return {
-      rollMax: 8,
+      rollMax: 12,
       angleX: 0,
       angleY: 0,
       result: 1,
       delay: 0,
       canRoll: false,
       resultMap: [
-        [1, ''],
-        [2, ''],
-        [3, ''],
-        [4, ''],
-        [5, ''],
-        [6, '']
+        { n: 1, x: 0, y: 0 },
+        { n: 2, x: 0, y: 90 },
+        { n: 3, x: 270, y: 0 },
+        { n: 4, x: 90, y: 0 },
+        { n: 5, x: 0, y: 180 },
+        { n: 6, x: 0, y: 270 }
       ],
       defaultTemplate: {
         top: ['point point-middle point-center'],
@@ -81,108 +101,128 @@ export default {
           'point point-top point-right',
           'point point-bottom point-left'
         ],
-        front: ['point point-top point-right', 'point point-top point-left', 'point point-middle point-center', 'point point-bottom point-right', 'point point-bottom point-left'],
+        front: [
+          'point point-top point-right',
+          'point point-top point-left',
+          'point point-middle point-center',
+          'point point-bottom point-right',
+          'point point-bottom point-left'
+        ],
         back: ['point point-top point-right', 'point point-bottom point-left'],
-        left: ['point point-top point-right', 'point point-middle point-center', 'point point-bottom point-left'],
-        right: ['point point-top point-right', 'point point-top point-left', 'point point-bottom point-right', 'point point-bottom point-left']
+        left: [
+          'point point-top point-right',
+          'point point-middle point-center',
+          'point point-bottom point-left'
+        ],
+        right: [
+          'point point-top point-right',
+          'point point-top point-left',
+          'point point-bottom point-right',
+          'point point-bottom point-left'
+        ]
       },
       template: {}
     }
   },
   methods: {
-    dotStylePosition(classes)
-    {
-      classes = classes.replaceAll('point-', '').split(' ');
-      let positions = classes.reduce((acc, pos) =>
-      {
-        let cssPos = pos;
-        if (['middle', 'center'].includes(pos))
-        {
-          cssPos = (pos === 'middle') ? 'top' : 'left'
+    dotStylePosition(classes) {
+      classes = classes.replaceAll('point-', '').split(' ')
+      let positions = classes.reduce((acc, pos) => {
+        let cssPos = pos
+        if (['middle', 'center'].includes(pos)) {
+          cssPos = pos === 'middle' ? 'top' : 'left'
         }
         return {
           ...acc,
-          [cssPos]: (['top', 'bottom', 'left', 'right'].includes(pos) ? this.width / 10 : this.width * 10 / 25) + 'vmin'
+          [cssPos]:
+            (['top', 'bottom', 'left', 'right'].includes(pos)
+              ? this.width / 10
+              : (this.width * 10) / 25) + 'vmin'
         }
       }, {})
 
       return {
-        width: `${ this.width / 5 }vmin`,
+        width: `${this.width / 5}vmin`,
         ...positions
       }
     },
-    faceStyle()
-    {
+    faceStyle() {
       return {
-        width: `${ this.width }vmin`,
-        "transform-origin": `50% 50% ${ -12.5 * this.width / 25 }vmin`
+        width: `${this.width}vmin`,
+        'transform-origin': `50% 50% ${(-12.5 * this.width) / 25}vmin`
       }
     },
-    getClasses(classes)
-    {
-      if (typeof classes[0] === 'string')
-        return classes.join(' ')
+    getClasses(classes) {
+      if (typeof classes[0] === 'string') return classes.join(' ')
 
       return classes[1]
     },
-    getRandomInt(max)
-    {
+    getRandomInt(max) {
       return Math.floor(Math.random() * max)
     },
-    roll()
-    {
+    getRandomFromArray(array) {
+      return array[Math.floor(Math.random() * array.length)]
+    },
+    getResult() {
+      let a = [{ a: 0 }, { a: 1 }, { a: 2 }].find(({ a }) => {
+        return a == 2
+      })
+      console.log(a)
+      return
+      let found
+      while (typeof found === 'undefined') {
+        this.angleX = this.getRandomFromArray(this.resultMap)
+        this.angleY = this.getRandomFromArray([0, 90, 180, 270])
+        let found = this.resultMap.find(({ n, x, y }) => {
+          console.log(x)
+          return x == this.angleX && y == this.angleY
+        })
+        if (found) break
+      }
+
+      return new Promise((res, rej) => {
+        if (!found) {
+          setTimeout(() => {
+            if (found != 'undefined') {
+              console.log(`final result: ${found}`)
+              this.$refs.dice.style.transform =
+                'rotateX(' + this.angleX + 'deg) rotateY(' + this.angleY + 'deg)'
+              this.$refs.dice.style.transitionDuration = this.delay + 'ms'
+            }
+            console.log(`value found is: ${found} `)
+            res(this.getResult())
+          }, 200)
+        }
+        console.log(found)
+        this.canRoll = true
+        res(found)
+      })
+    },
+    roll() {
+      /**
+       * 0 0:1
+       * 0 90:2
+       * 270 0:3
+       * 90 0:4
+       * 0 180:5
+       * 0 270:6
+       */
       this.canRoll = false
 
-      const xTurn = 4 + this.getRandomInt(this.rollMax),
-        yTurn = 4 + this.getRandomInt(this.rollMax)
+      const xTurn = this.getRandomInt(this.rollMax),
+        yTurn = this.getRandomInt(this.rollMax)
 
       this.delay = Math.max(xTurn, yTurn) * 250
-
-      this.angleX += 90 * xTurn
-      this.angleY += 90 * yTurn
-
-      // balancing the results
-      if (this.angleX % 180)
-      {
-        this.getRandomInt(4) > 1 && (this.angleX += 90)
-      }
-
-      this.$refs.dice.style.transform = 'rotateX(' + this.angleX + 'deg) rotateY(' + this.angleY + 'deg)'
+      let result = this.getRandomFromArray(this.resultMap)
+      this.$refs.dice.style.transform =
+        'rotateX(' + result.x + 'deg) rotateY(' + result.y + 'deg)'
       this.$refs.dice.style.transitionDuration = this.delay + 'ms'
 
-      let x = this.angleX % 360,
-        y = this.angleY % 360
-
-      let result
-      if (x === 0 || x === 180)
-      {
-        switch ((x + y) % 360)
-        {
-          case 0:
-            result = 1
-            break
-          case 90:
-            result = 5
-            break
-          case 180:
-            result = 6
-            break
-          case 270:
-            result = 2
-            break
-          default:
-            console.error(123456)
-        }
-      } else if (x === 90)
-      {
-        result = 4
-      } else if (x === 270)
-      {
-        result = 3
-      }
       console.log('result:', result)
       setTimeout(() => (this.canRoll = true), this.delay)
-      return result
+      //return result.n
+      this.$emit('result', result.n)
+      // return result.n
     }
   }
 }
@@ -224,7 +264,7 @@ export default {
 }
 
 .red-bg {
-  background: radial-gradient(circle at center, rgb(190, 0, 0), rgb(160, 0, 0));
+  background: radial-gradient(circle at center, rgb(190, 0, 0), rgb(63, 0, 0));
 }
 
 .brown-bg {
@@ -267,7 +307,7 @@ export default {
   transform: rotateX(270deg);
 }
 
-.face>div {
+.face > div {
   position: absolute;
   width: 5vmin;
   aspect-ratio: 1;

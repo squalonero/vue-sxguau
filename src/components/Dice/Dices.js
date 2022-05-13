@@ -187,40 +187,40 @@ export const Dices = [
     color: '#444',
     schema: {
       top: [
-        ['point', 'point-middle point-center']
+        ['github', 'point-middle point-center']
       ],
       bottom: [
-        ['point', 'point-top point-right'],
-        ['point', 'point-top point-right'],
-        ['point', 'point-middle point-right'],
-        ['point', 'point-top point-left'],
-        ['point', 'point-middle point-left'],
-        ['point', 'point-bottom point-right'],
-        ['point', 'point-top point-right'],
-        ['point', 'point-top point-right'],
-        ['point', 'point-bottom point-left']
+        ['github', 'point-top point-right'],
+        ['github', 'point-top point-right'],
+        ['github', 'point-middle point-right'],
+        ['github', 'point-top point-left'],
+        ['github', 'point-middle point-left'],
+        ['github', 'point-bottom point-right'],
+        ['github', 'point-top point-right'],
+        ['github', 'point-top point-right'],
+        ['github', 'point-bottom point-left']
       ],
       front: [
-        ['point', 'point-top point-right'],
-        ['point', 'point-top point-left'],
-        ['point', 'point-middle point-center'],
-        ['point', 'point-bottom point-right'],
-        ['point', 'point-bottom point-left']
+        ['github', 'point-top point-right'],
+        ['github', 'point-top point-left'],
+        ['github', 'point-middle point-center'],
+        ['github', 'point-bottom point-right'],
+        ['github', 'point-bottom point-left']
       ],
       back: [
-        ['point', 'point-top point-right'],
-        ['point', 'point-bottom point-left']
+        ['github', 'point-top point-right'],
+        ['github', 'point-bottom point-left']
       ],
       left: [
-        ['point', 'point-top point-right'],
-        ['point', 'point-middle point-center'],
-        ['point', 'point-bottom point-left']
+        ['github', 'point-top point-right'],
+        ['github', 'point-middle point-center'],
+        ['github', 'point-bottom point-left']
       ],
       right: [
-        ['point', 'point-top point-right'],
-        ['point', 'point-top point-left'],
-        ['point', 'point-bottom point-right'],
-        ['point', 'point-bottom point-left']
+        ['github', 'point-top point-right'],
+        ['github', 'point-top point-left'],
+        ['github', 'point-bottom point-right'],
+        ['github', 'point-bottom point-left']
       ]
     }
   }

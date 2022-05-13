@@ -61,6 +61,7 @@ export default {
 .modalWrapper {
   position: fixed;
   inset: 0;
+  z-index: 99999;
 }
 .modalWrapper::before {
   content: "";
