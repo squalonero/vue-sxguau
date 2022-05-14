@@ -80,14 +80,14 @@ export default {
       angleY: 0,
       result: 1,
       delay: 0,
-      canRoll: false,
+      canRoll: true,
       resultMap: [
-        { n: 1, x: 0, y: 0 },
-        { n: 2, x: 0, y: 90 },
-        { n: 3, x: 270, y: 0 },
-        { n: 4, x: 90, y: 0 },
-        { n: 5, x: 0, y: 180 },
-        { n: 6, x: 0, y: 270 }
+        { n: 1, name: 'top', x: 0, y: 0 },
+        { n: 2, name: 'back', x: 0, y: 90 },
+        { n: 3, name: 'left', x: 270, y: 0 },
+        { n: 4, name: 'right', x: 90, y: 0 },
+        { n: 5, name: 'front', x: 0, y: 180 },
+        { n: 6, name: 'bottom', x: 0, y: 270 }
       ],
       defaultTemplate: {
         top: ['point point-middle point-center'],
@@ -159,13 +159,15 @@ export default {
       return classes[1]
     },
     getRandomInt(min, max) {
-      return Math.floor(Math.random() * (max - min) + min);
+      return Math.floor(Math.random() * (max - min) + min)
     },
     getRandomFromArray(array) {
       return array[Math.floor(Math.random() * array.length)]
     },
-    roll() {
+    async giveResult() {},
+    async roll() {
       /**
+       * @results
        * 0 0:1
        * 0 90:2
        * 270 0:3
@@ -173,22 +175,36 @@ export default {
        * 0 180:5
        * 0 270:6
        */
+
+      //roll lock
       this.canRoll = false
 
+      //animation delay
       const xTurn = this.getRandomInt(this.rollMin, this.rollMax),
         yTurn = this.getRandomInt(this.rollMin, this.rollMax)
-
       this.delay = Math.max(xTurn, yTurn) * 250
+
+      //actual result calculation
       let result = this.getRandomFromArray(this.resultMap)
       this.$refs.dice.style.transform =
         'rotateX(' + result.x + 'deg) rotateY(' + result.y + 'deg)'
       this.$refs.dice.style.transitionDuration = this.delay + 'ms'
 
-      console.log('result:', result)
-      setTimeout(() => (this.canRoll = true), this.delay)
-      //return result.n
-      this.$emit('result', result.n)
-      // return result.n
+      //roll unlock
+      return new Promise((res) =>
+        setTimeout(() => {
+          this.canRoll = true
+          res({
+            number: result.n,
+            face: result.name,
+            diceName: this.tpl
+          })
+        }, this.delay)
+      )
+
+      //this.$emit('result', result.n, result.name, this.tpl)
+
+      //propagate to parent
     }
   }
 }

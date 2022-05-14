@@ -1,16 +1,18 @@
 <template>
     <div class="side">
         <dice-manager></dice-manager>
+        <dice-result-feed></dice-result-feed>
     </div>
 </template>
 <script>
-import  Dice from './Dice/Dice'
-import  DiceManager from './DiceManager'
+import  DiceManager from './Side/DiceManager'
+import  DiceResultFeed from './Side/DiceResultFeed'
 
 export default {
     name: 'SidePanel',
     components: {
-        DiceManager
+        DiceManager,
+        DiceResultFeed
     },
     props: {
 
