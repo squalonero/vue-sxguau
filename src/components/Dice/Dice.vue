@@ -19,7 +19,7 @@
             <icon
               v-if="typeof dotClass[0] === 'string'"
               :name="dotClass[0]"
-              :size="width * 2"
+              :size="width * 3"
               :color="template.color"
             />
             <div
@@ -232,29 +232,29 @@ export default {
 }
 
 .dice-container {
-  width: 25vmin;
+  width: 25px;
   aspect-ratio: 1;
   cursor: pointer;
 }
 
 .dice {
   position: relative;
-  width: 25vmin;
+  width: 25px;
   aspect-ratio: 1;
-  border-radius: 1vmin;
+  border-radius: 1px;
   transform-style: preserve-3d;
-  transform-origin: 50% 50% -5vmin;
+  transform-origin: 50% 50% -5px;
   /* transform: rotateX(180deg) rotateY(180deg); */
   transition: transform 2s ease-in-out;
 }
 
 .face {
   position: absolute;
-  width: 25vmin;
+  width: 25px;
   aspect-ratio: 1;
-  border-radius: 1vmin;
+  border-radius: 1px;
   transform: rotateX(0deg) rotateY(180deg);
-  transform-origin: 50% 50% -5vmin;
+  transform-origin: 50% 50% -5px;
   /*backface-visibility: hidden;*/
 }
 
@@ -308,7 +308,7 @@ export default {
 
 .face > div {
   position: absolute;
-  /* width: 5vmin; */
+  /* width: 5px; */
   aspect-ratio: 1;
   align-self: center;
   justify-self: center;
@@ -321,33 +321,33 @@ export default {
 }
 
 .point-top {
-  top: 2.5vmin;
+  top: 2.5px;
 }
 
 .point-middle {
-  top: 10vmin;
+  top: 10px;
 }
 
 .point-bottom {
-  bottom: 2.5vmin;
+  bottom: 2.5px;
 }
 
 .point-left {
-  left: 2.5vmin;
+  left: 2.5px;
 }
 
 .point-center {
-  left: 10vmin;
+  left: 10px;
 }
 
 .point-right {
-  right: 2.5vmin;
+  right: 2.5px;
 }
 
 .roll-btn {
-  padding: 1vmin 1.5vmin;
+  padding: 1px 1.5px;
   border: none;
-  border-radius: 1vmin;
+  border-radius: 1px;
   cursor: pointer;
   font-weight: bolder;
 }

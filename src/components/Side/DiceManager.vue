@@ -18,7 +18,7 @@
       v-for="(dice, k) of dices"
       :key="k"
       :tpl="dice"
-      :width="10"
+      :width="5"
       ref="dice"
       @result="catchResult"
     />
