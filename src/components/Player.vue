@@ -41,7 +41,7 @@
 <script>
 import Stat from "./Stat.vue"
 import Ezselect from "./Form/Ezselect.vue"
-import { Conditions } from "../data/conditions.js"
+import { Conditions } from "./Condition/conditions.js"
 import Icon from "./Icon/Icon.vue"
 import Dice from './Dice/Dice.vue'
 
@@ -91,7 +91,10 @@ export default {
           contents: [
             cond.desc, cond.monster_desc
           ],
-          images: cond.card
+          images: {
+            front: `/assets/images/conditions/filtered/${cond.tag}_front.png`,
+            back: `/assets/images/conditions/filtered/${cond.tag}_back.png`,
+          }
         })
     }
   }
