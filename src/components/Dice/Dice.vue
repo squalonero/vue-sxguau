@@ -1,14 +1,14 @@
 <template>
   <div class="diceWrapper">
-    <div class="dice-container" :style="`width: ${width}vmin`">
-      <div class="dice" ref="dice" :style="`width: ${width}vmin`">
+    <div class="dice-container" :style="widthStyle()">
+      <div class="dice" ref="dice" :style="widthStyle()">
         <div
           v-for="(face, pos) in template.schema"
           :key="pos"
           class="face"
           :class="`${pos} ${template.background}-bg`"
           data-id=""
-          :style="faceStyle()"
+          :style="widthStyle()"
         >
           <div
             v-for="(dotClass, k) of face"
@@ -25,7 +25,7 @@
             <div
               v-else
               class="number"
-              :style="`color: ${template.color}; font-size:${width / 4}rem`"
+              :style="`color: ${template.color}; font-size:2rem`"
             >
               {{ dotClass[0] }}
             </div>
@@ -89,6 +89,14 @@ export default {
         { n: 5, name: 'front', x: 0, y: 180 },
         { n: 6, name: 'bottom', x: 0, y: 270 }
       ],
+      dotMap: [
+        { name: 'top', val: 10, transform: 'translateY', adj:'-' },
+        { name: 'right', val: 10, transform: 'translateX', adj:'' },
+        { name: 'bottom', val: 10, transform: 'translateY', adj:'' },
+        { name: 'left', val: 10, transform: 'translateX', adj:'-' },
+        { name: 'center', val: 50, transform: 'translateX', adj:'-' },
+        { name: 'middle', val: 50, transform: 'translateY', adj:'-' }
+      ],
       defaultTemplate: {
         top: ['point point-middle point-center'],
         bottom: [
@@ -127,30 +135,39 @@ export default {
   },
   methods: {
     dotStylePosition(classes) {
+      //mapping for dot style
       classes = classes.replaceAll('point-', '').split(' ')
       let positions = classes.reduce((acc, pos) => {
-        let cssPos = pos
+        let cssPos
         if (['middle', 'center'].includes(pos)) {
           cssPos = pos === 'middle' ? 'top' : 'left'
-        }
+        } else cssPos = pos
+
+        let adjust = this.dotMap.reduce((n, { name, val, transform, adj }) => {
+            if (pos === name) return transform + `(${adj+val}%)`
+            return n
+          }, '')
+
         return {
           ...acc,
           [cssPos]:
-            (['top', 'bottom', 'left', 'right'].includes(pos)
-              ? this.width / 10
-              : (this.width * 10) / 25) + 'vmin'
+            this.dotMap.reduce((n, { name, val }) => {
+              if (pos === name) return val
+              return n
+            }, 0) + '%',
+          transform: ('transform' in acc) ? acc.transform += ' ' + adjust  : adjust
         }
       }, {})
 
       return {
-        width: `${this.width / 5}vmin`,
+        'line-height': 1,
         ...positions
       }
     },
-    faceStyle() {
+    widthStyle() {
       return {
-        width: `${this.width}vmin`,
-        'transform-origin': `50% 50% ${(-12.5 * this.width) / 25}vmin`
+        width: `${this.width}rem`,
+        'transform-origin': `50% 50% -${this.width/2}rem`
       }
     },
     getClasses(classes) {
@@ -291,7 +308,7 @@ export default {
 
 .face > div {
   position: absolute;
-  width: 5vmin;
+  /* width: 5vmin; */
   aspect-ratio: 1;
   align-self: center;
   justify-self: center;

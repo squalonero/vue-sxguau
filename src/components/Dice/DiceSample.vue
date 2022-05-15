@@ -1,12 +1,33 @@
 <template>
   <div class="diceWrapper">
-    <div class="dice-container" :style="`width: ${ width }vmin`">
-      <div class="dice" ref="dice" :style="`width: ${ width }vmin`">
-        <div v-for="(face, pos) in template.schema" :key="pos" class="face"
-          :class="`${ pos } ${ template.background }-bg`" :style="`width: ${ width }vmin`">
-          <div v-for="(dotClass, k) of face" :key="k" :class="dotClass[1]" :style="dotStylePosition(dotClass[1])">
-            <icon v-if="typeof dotClass[0] === 'string'" :name="dotClass[0]" :size="width * 2" :color="template.color" />
-            <div v-else class="number" :style="`color: ${ template.color }; font-size:${width/4}rem`">{{ dotClass[0] }}</div>
+    <div class="dice-container" :style="`width: ${width}vmin`">
+      <div class="dice" ref="dice" :style="`width: ${width}vmin`">
+        <div
+          v-for="(face, pos) in template.schema"
+          :key="pos"
+          class="face"
+          :class="`${pos} ${template.background}-bg`"
+          :style="`width: ${width}vmin`"
+        >
+          <div
+            v-for="(dotClass, k) of face"
+            :key="k"
+            :class="dotClass[1]"
+            :style="dotStylePosition(dotClass[1])"
+          >
+            <icon
+              v-if="typeof dotClass[0] === 'string'"
+              :name="dotClass[0]"
+              :size="width * 2"
+              :color="template.color"
+            />
+            <div
+              v-else
+              class="number"
+              :style="`color: ${template.color}; font-size:${width / 4}rem`"
+            >
+              {{ dotClass[0] }}
+            </div>
           </div>
         </div>
       </div>
@@ -14,8 +35,8 @@
   </div>
 </template>
 <script>
-import { Dices } from './Dices';
-import Icon from '../Icon/Icon.vue';
+import { Dices } from './Dices'
+import Icon from '../Icon/Icon.vue'
 
 export default {
   name: 'DiceSample',
@@ -32,58 +53,75 @@ export default {
       default: 25
     }
   },
-  created()
-  {
+  created() {
     //get the current dice template, only first face
-    this.template = Dices.filter(({ name, ...rest }) =>
-    {
+    this.template = Dices.filter(({ name, ...rest }) => {
       return name === this.tpl
-    })
-      .reduce((acc, { schema: { ...faces }, ...rest }) =>
-      {
-        return {
-          schema: {
-            [Object.keys(faces).find(f => faces[f].length > 0)]: Object.values(faces).find(f => f.length > 0), //get first nonEmpty face
-          },
-          ...rest
-        }
-
-      }, {})
+    }).reduce((acc, { schema: { ...faces }, ...rest }) => {
+      return {
+        schema: {
+          [Object.keys(faces).find((f) => faces[f].length > 0)]: Object.values(
+            faces
+          ).find((f) => f.length > 0) //get first nonEmpty face
+        },
+        ...rest
+      }
+    }, {})
   },
   watch: {
     template: {
-      handler(v) { return v },
+      handler(v) {
+        return v
+      },
       deep: true
     }
   },
-  data()
-  {
+  data() {
     return {
       template: {},
+      dotMap: [
+        { name: 'top', val: 10, transform: 'translateY', adj: '-' },
+        { name: 'right', val: 10, transform: 'translateX', adj: '' },
+        { name: 'bottom', val: 10, transform: 'translateY', adj: '' },
+        { name: 'left', val: 10, transform: 'translateX', adj: '-' },
+        { name: 'center', val: 50, transform: 'translateX', adj: '-' },
+        { name: 'middle', val: 50, transform: 'translateY', adj: '-' }
+      ]
     }
   },
   methods: {
     dotStylePosition(classes) {
-      classes = classes.replaceAll('point-', '').split(' ');
-      let positions = classes.reduce((acc,pos)=>{
-        let cssPos = pos;
-        if(['middle', 'center'].includes(pos))
-        {
-          cssPos = (pos==='middle') ? 'top' : 'left'
-        }
+      //mapping for dot style
+      classes = classes.replaceAll('point-', '').split(' ')
+      let positions = classes.reduce((acc, pos) => {
+        let cssPos
+        if (['middle', 'center'].includes(pos)) {
+          cssPos = pos === 'middle' ? 'top' : 'left'
+        } else cssPos = pos
+
+        let adjust = this.dotMap.reduce((n, { name, val, transform, adj }) => {
+          if (pos === name) return transform + `(${adj + val}%)`
+          return n
+        }, '')
+
         return {
           ...acc,
-          [cssPos]: (['top', 'bottom', 'left', 'right'].includes(pos) ? this.width/10 : this.width*10/25)+'vmin'
+          [cssPos]:
+            this.dotMap.reduce((n, { name, val }) => {
+              if (pos === name) return val
+              return n
+            }, 0) + '%',
+          transform: 'transform' in acc ? (acc.transform += ' ' + adjust) : adjust
         }
       }, {})
 
       return {
-        width: `${this.width/5}vmin`,
+        'line-height': 1,
         ...positions
       }
     }
   }
-};
+}
 </script>
 <style scoped>
 /** Default DostylePosition */
@@ -147,7 +185,7 @@ export default {
 }
 
 .brown-bg {
-  background: radial-gradient(circle at center, rgb(102, 63, 4),rgb(71, 44, 4));
+  background: radial-gradient(circle at center, rgb(102, 63, 4), rgb(71, 44, 4));
 }
 
 .black-bg {
@@ -186,7 +224,7 @@ export default {
   transform: rotateX(270deg);
 }
 
-.face>div {
+.face > div {
   position: absolute;
   aspect-ratio: 1;
   align-self: center;
@@ -198,7 +236,6 @@ export default {
   background: #444;
   box-shadow: inset 5px 0 10px #222;
 }
-
 
 .roll-btn {
   padding: 1vmin 1.5vmin;

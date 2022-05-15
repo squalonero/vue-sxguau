@@ -68,12 +68,6 @@ export default {
       }
     }
   },
-  created() {
-    this.result = { heart: 1 }
-    this.result = { heart: 1 }
-    this.result = { heart: 1 }
-    console.log({ heart: 1 }.length)
-  },
   methods: {
     addDice(name) {
       this.dices.push(name)
@@ -110,6 +104,9 @@ export default {
           })
         })
       ).then((results) => {
+          /**
+           * sum same values if multiple dices by icon name
+           */
         results.forEach((res) => {
           for (const [key, value] of Object.entries(res)) {
             if (key in this.v_result) this.v_result[key] += value
