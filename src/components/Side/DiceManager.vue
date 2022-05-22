@@ -113,7 +113,7 @@ export default {
             else this.v_result[key] = value
           }
         })
-        console.log(this.result)
+        this.$emit('dices:result', this.result)
       })
     },
     reset() {

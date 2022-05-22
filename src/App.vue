@@ -1,36 +1,30 @@
 <template>
-  <div id="vue">
-    <board :players="players"></board>
-    <side-panel></side-panel>
+  <div id="nav">
+    <router-link to="/">Home</router-link>
+    <router-link to="/game">Game</router-link>
+    <router-link to="/game2">Game2</router-link>
+    <router-link to="/test">Test</router-link>
   </div>
+  <router-view id="vue" class="d-flex" />
 </template>
 
 <script>
-import Board from './components/Board.vue';
-import SidePanel from './components/SidePanel.vue';
-import Heroes from './data/heroes.json';
+
 import AppConfig from './app.config.json';
 
 export default {
   name: 'App',
-  components: {
-    Board, SidePanel,
-  },
-  data()
-  {
-    return {
-      players: Heroes.heroes,
-    };
-  },
+
 };
 </script>
 
 <style>
 body {
   margin: 0;
+  background-color: #000;
 }
 
-#vue {
+#app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -38,10 +32,6 @@ body {
   padding-top: 60px;
   padding: 1rem;
   position: relative;
-  background-color: #000;
-  display: flex;
-
-
 }
 
 #vue::before {
@@ -52,6 +42,11 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   opacity: .3;
+  z-index: -1;
+}
+#vue{
+  position: relative;
+  z-index: auto;
 }
 
 .flex-break {

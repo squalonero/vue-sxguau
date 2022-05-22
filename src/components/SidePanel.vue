@@ -1,12 +1,12 @@
 <template>
     <div class="side">
-        <dice-manager></dice-manager>
-        <dice-result-feed></dice-result-feed>
+        <dice-manager @dices:result="result=>feed.push(result)"></dice-manager>
+        <dice-result-feed :feed="feed" ></dice-result-feed>
     </div>
 </template>
 <script>
-import  DiceManager from './Side/DiceManager'
-import  DiceResultFeed from './Side/DiceResultFeed'
+import  DiceManager from './Side/DiceManager.vue'
+import  DiceResultFeed from './Side/DiceResultFeed.vue'
 
 export default {
     name: 'SidePanel',
@@ -15,7 +15,13 @@ export default {
         DiceResultFeed
     },
     props: {
-
+    },
+    data(){
+        return {
+            feed: []
+        }
+    },
+    methods: {
     },
     setup()
     {
