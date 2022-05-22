@@ -1,39 +1,19 @@
 const { createApp, onMounted } = require('vue');
 import App from "./App.vue";
 import router from './router/'
+import { createPinia } from 'pinia'
 
-const Vue = createApp(App)
+const Vue = createApp(App).use(createPinia())
 
-/**
- * Vue store.
- * Store global variables.
- * May be used to store states.
- * It is global, it is reactive.
- *
- * 1: map data
- */
- var store = new Vue({
-  data: {
-      icons: [
-        {name: 'heart', color: '#b33641'},
-        {name: 'power', color: '#a88d1e'},
-        {name: 'number', color: '#1e2aa8'},
-      ],
-  }
-})
-/**
-* 2: define install method which connects store to a new global variable we have called `$store`
-*/
-store.install = function ()
-{
-  Object.defineProperty(Vue.prototype, '$store', {
-      get() { return store }
-  })
+var store = {
+ data: {
+     icons: [
+       {name: 'heart', color: '#b33641'},
+       {name: 'power', color: '#a88d1e'},
+       {name: 'number', color: '#1e2aa8'},
+     ],
+ }
 }
-/**
-* 3: tell vue to use our store
-*/
-Vue.use(store);
 
 Vue.use(router)
 
@@ -46,5 +26,5 @@ Vue.directive('focus', {
   })
 
 
-  Vue.mount("#app")
+Vue.mount("#app")
 
