@@ -9,11 +9,27 @@
 </template>
 
 <script>
-
+import { useIconStore } from '@/store/icon'
 import AppConfig from './app.config.json';
 
 export default {
   name: 'App',
+  setup() {
+    const icons = useIconStore()
+    return {
+      // you can return the whole store instance to use it in the template
+      icons,
+    }
+  },
+  mounted(){
+
+  },
+  created(){
+    // console.log('logging from created');
+    // // console.log(this._pStores.icons.allIcons)
+    // // console.log(this._pStores.icons.getColor('heart'))
+    // console.log(this)
+  }
 
 };
 </script>

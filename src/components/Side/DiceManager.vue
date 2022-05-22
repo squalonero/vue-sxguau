@@ -28,6 +28,8 @@
 import { Dices } from './../Dice/Dices'
 import Dice from './../Dice/Dice.vue'
 import DiceSample from './../Dice/DiceSample.vue'
+import { useDiceStore } from '@/store/dice.js'
+
 
 export default {
   name: 'DiceManager',
@@ -36,9 +38,20 @@ export default {
     DiceSample
   },
   props: {},
+  setup() {
+    const dStore = useDiceStore()
+    console.log(`calling the store in DiceManager component`)
+    const results = dStore.results
+    //return works like data(): you can acces what you return by using this.[whatyoureturn] in any other location of this component only
+    return {
+      // you can return the whole store instance to use it in the template
+      results,
+      dStore
+    }
+  },
   data() {
     return {
-      availableDices: Dices, //.filter(({ name, ...rest }) => { return name != 'default' }), exclude default template
+      availableDices: Dices,
       dices: [],
       v_result: {}
     }
@@ -58,13 +71,6 @@ export default {
       },
       set: function (v) {
         this.v_result = v
-        // if (v== {}) this.v_result = {}
-        // else {
-        //   for (const [key, value] of Object.entries(v)) {
-        //     if (key in this.v_result) this.v_result[key] += value
-        //     else this.v_result[key] = value
-        //   }
-        // }
       }
     }
   },
@@ -113,7 +119,8 @@ export default {
             else this.v_result[key] = value
           }
         })
-        this.$emit('dices:result', this.result)
+        console.log('adding result to the store')
+        this.dStore.addResult(this.result)
       })
     },
     reset() {
