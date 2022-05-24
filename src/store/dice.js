@@ -15,5 +15,9 @@ export const useDiceStore = defineStore('dices', {
         {
             this.results.unshift(res)
         },
+        clear()
+        {
+            this.results = []
+        }
     },
 })

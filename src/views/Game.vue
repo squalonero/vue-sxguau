@@ -7,7 +7,7 @@
 <script>
 import Board from '../components/Board.vue'
 import SidePanel from '../components/SidePanel.vue'
-import Heroes from '../data/heroes.json'
+import Heroes from '../data/HEROES.json'
 export default {
   components: {
     Board,
@@ -15,7 +15,7 @@ export default {
   },
   data() {
     return {
-      players: Heroes.heroes
+      players: Heroes
     }
   },
   setup() {}

@@ -73,6 +73,7 @@ export default {
 }
 </script>
 <style scoped>
+
 .imgActions
 {
   display: flex;
@@ -114,11 +115,13 @@ export default {
   position: absolute;
   inset: 50vh auto auto 50vw;
   transform: translate(-50%, -50%);
+  max-height: 100vh;
 }
 .bigImg .modal{
   height: 100vh;
   width: auto;
   max-width: 100vw;
+  overflow: scroll;
 }
 .bigImg .flip-box-inner img
 {

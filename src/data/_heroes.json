@@ -1,0 +1,56 @@
+{
+  "heroes": [
+    {
+      "hero": "Jain Fairwood",
+      "image": "https://wiki.descent-community.org/wiki/images/2/2f/Hero_-_Jain_Fairwood.png",
+      "speed": 5,
+      "health": 8,
+      "fatigue": 5,
+      "skills": {
+        "might":2,
+        "knowledge":3,
+        "willpower":2,
+        "awareness":4
+      }
+    },
+    {
+      "hero": "Grey Ker",
+      "image": "https://wiki.descent-community.org/wiki/images/6/6c/Hero_-_Grey_Ker.png",
+      "speed": 4,
+      "health": 12,
+      "fatigue": 5,
+      "skills": {
+        "might":2,
+        "knowledge":3,
+        "willpower":2,
+        "awareness":4
+      }
+    },
+    {
+      "hero": "Avric Albright",
+      "image": "https://wiki.descent-community.org/wiki/images/4/42/Hero_-_Avric_Albright.png",
+      "speed": 4,
+      "health": 12,
+      "fatigue": 4,
+      "skills": {
+        "might":2,
+        "knowledge":3,
+        "willpower":2,
+        "awareness":4
+      }
+    },
+    {
+      "hero": "Leoric of the Book",
+      "image": "https://wiki.descent-community.org/wiki/images/e/eb/Hero_-_Leoric_of_the_Book.png",
+      "speed": 4,
+      "health": 8,
+      "fatigue": 5,
+      "skills": {
+        "might":2,
+        "knowledge":3,
+        "willpower":2,
+        "awareness":4
+      }
+    }
+  ]
+}

@@ -1,8 +1,6 @@
 <template>
   <div class="Board">
-    <div v-for="(heroData, k) in players" :key="k">
-      <player :id="k" :data="heroData" @modal:open="modalOpen"/>
-    </div>
+    <player :id="0" :data="players[0]" @modal:open="modalOpen"/>
     <modal :show="this.modalShow" :title="this.modalData.title" :contents="this.modalData.contents" :images="this.modalData.images"
     @modal:close="modalClose" ></modal>
   </div>
@@ -38,4 +36,11 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.Board{
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 30vw;
+  max-height: 100%;
+}
+</style>

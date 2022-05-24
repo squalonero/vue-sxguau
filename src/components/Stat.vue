@@ -33,7 +33,7 @@ export default {
   },
   props: {
     code: String,
-    value: Number,
+    value: String,
     icon: String,
     color: String,
   },

@@ -28,5 +28,7 @@ export default {
   z-index: 1;
   flex: 1;
   border: 1px solid #fff;
+  max-height: 100%;
+  overflow: hidden;
 }
 </style>
