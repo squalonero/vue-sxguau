@@ -3,6 +3,11 @@ import Home from "../views/Home.vue";
 import Test from "../views/Test.vue";
 import Game2 from "../views/Game.vue";
 
+import Conditions from "../views/player/Conditions.vue";
+import Dices from "../views/player/Dices.vue";
+import DicesHistory from "../views/player/DicesHistory.vue";
+import Stats from "../views/player/Stats.vue";
+
 const routes = [
     { path: '/', name: "Home", component: Home, },
     { path: '/test', name: "Test", component: Test, },
@@ -16,7 +21,13 @@ const routes = [
         path: "/game",
         name: "Game",
         component: () => import("../views/Game"),
-    }
+
+    },
+    { path: '/game/stats', name: "PlayerStats", component: Stats, },
+    { path: '/game/conditions', name: "PlayerConditions", component: Conditions, },
+    { path: '/game/dices', name: "PlayerDices", component: Dices, },
+    { path: '/game/dices-history', name: "PlayerDicesHistory", component: DicesHistory, },
+
 ];
 
 const router = createRouter({

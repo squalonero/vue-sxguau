@@ -1,34 +1,37 @@
 <template>
   <div class="modalWrapper" v-if="this.show" :class="bigImg ? 'bigImg' : ''">
     <div class="modal">
-      <span class="closeModal">
+      <div class="imgActions">
+        <span class="rotateImg">
         <icon
-          name="cross"
+          name="spinner11"
           :size="20"
-          color="#b33641"
-          @click="this.$emit('modal:close')"
-        />
-      </span>
+          color="white"
+          @click="rotateImg = !rotateImg"
+        ></icon>
+        </span>
+        <span class="closeModal">
+          <icon
+            name="cross"
+            :size="20"
+            color="#b33641"
+            @click="this.$emit('modal:close')"
+          />
+        </span>
+      </div>
       <div class="d-flex flexGrid">
         <div class="imageContainer">
-        <div class="flip-box" :class="rotateImg ? 'rotate' : ''">
-          <div class="flip-box-inner">
-            <img
-              v-for="(image, k) of images"
-              :key="k"
-              :src="image"
-              :class="k === 'front' ? 'flip-box-front' : 'flip-box-back'"
-              @click="bigImg = !bigImg"
-            />
+          <div class="flip-box" :class="rotateImg ? 'rotate' : ''">
+            <div class="flip-box-inner">
+              <img
+                v-for="(image, k) of images"
+                :key="k"
+                :src="image"
+                :class="k === 'front' ? 'flip-box-front' : 'flip-box-back'"
+                @click="bigImg = !bigImg"
+              />
+            </div>
           </div>
-          <!-- <div class="flip" v-if="Object.keys(this.images).length > 1">
-            <icon name="spinner11" color="white" :size="40" />
-          </div> -->
-        </div>
-        <div class="imgActions">
-        <icon name="spinner11" :size="15" color="green" @click="rotateImg = !rotateImg"></icon>
-        <!-- <icon name="search" :size="15" color="red" @click="viewBig"></icon> -->
-        </div>
         </div>
 
         <div class="contentContainer" v-if="!bigImg">
@@ -73,16 +76,13 @@ export default {
 }
 </script>
 <style scoped>
-
-.imgActions
-{
+.imgActions {
   display: flex;
   align-items: center;
   gap: 15px;
   padding: 3px;
 }
-.imgActions > *
-{
+.imgActions > * {
   cursor: pointer;
 }
 .flexGrid {
@@ -98,6 +98,13 @@ export default {
   top: 10px;
   cursor: pointer;
 }
+.rotateImg{
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  cursor: pointer;
+  z-index: 2;
+}
 .modalWrapper {
   position: fixed;
   inset: 0;
@@ -109,7 +116,7 @@ export default {
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
 }
-.modal{
+.modal {
   max-width: calc(100vw - 2rem);
   background: rgba(0, 0, 0, 0.95);
   position: absolute;
@@ -117,15 +124,19 @@ export default {
   transform: translate(-50%, -50%);
   max-height: 100vh;
 }
-.bigImg .modal{
-  height: 100vh;
+.bigImg .modal {
+  max-height: 100vh;
   width: auto;
   max-width: 100vw;
-  overflow: scroll;
+  /* overflow: auto; */
 }
-.bigImg .flip-box-inner img
-{
+.bigImg .flip-box-inner img {
   max-width: unset;
+}
+.bigImg .imageContainer
+{
+  flex:1;
+  overflow: auto;
 }
 .imageContainer {
   flex: 0;
@@ -175,8 +186,7 @@ export default {
   color: white;
   transform: rotateY(180deg);
 }
-#bigImg
-{
+#bigImg {
   position: fixed;
   transition: 250ms;
   animation: scaleUp 1s forwards;
@@ -184,11 +194,10 @@ export default {
   width: auto;
 }
 
-@keyframes scaleUp{
-  to{
+@keyframes scaleUp {
+  to {
     height: 100vh;
     width: auto;
   }
 }
-
 </style>

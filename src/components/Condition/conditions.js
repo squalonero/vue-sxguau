@@ -37,7 +37,7 @@ export const Conditions = [
   },
   {
     name: "Bruciare",
-    tag: "bunring",
+    tag: "burning",
     desc: "You or a figure adjacent to you may perform an action to discard this card or token. At the end of your turn, you and each friendly figure adjacent to you suffers 1 Heart.",
     monster_desc: "",
     card: {

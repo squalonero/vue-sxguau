@@ -44,7 +44,6 @@ body {
   background-color: #000;
   height: 100%;
   max-height: 100vh;
-  overflow-y: scroll;
 }
 
 #app {
@@ -55,7 +54,7 @@ body {
   padding: 0;
   position: relative;
   max-height: 100%;
-  display: flex;
+  display: block;
   overflow: hidden;
 }
 #descent-helper {

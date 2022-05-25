@@ -1,5 +1,11 @@
 <template>
   <div id="game">
+    <div id="playerNav">
+      <router-link to="/game/stats">Stats</router-link>
+      <router-link to="/game/conditions">Conditions</router-link>
+      <router-link to="/game/dices">Dices</router-link>
+      <router-link to="/game/dices-history">DicesHistory</router-link>
+    </div>
     <board :players="players"></board>
     <side-panel></side-panel>
   </div>
