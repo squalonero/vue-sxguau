@@ -185,12 +185,13 @@ export default {
     async roll() {
       /**
        * @results
-       * 0 0:1
-       * 0 90:2
-       * 270 0:3
-       * 90 0:4
-       * 0 180:5
-       * 0 270:6
+       * X | Y | Result
+       * 0   0 :  1
+       * 0  90 :  2
+       * 270 0 :  3
+       * 90  0 :  4
+       * 0 180 :  5
+       * 0 270 :  6
        */
 
       //roll lock
@@ -203,6 +204,8 @@ export default {
 
       //actual result calculation
       let result = this.getRandomFromArray(this.resultMap)
+
+      //animation angle
       this.$refs.dice.style.transform =
         'rotateX(' + result.x + 'deg) rotateY(' + result.y + 'deg)'
       this.$refs.dice.style.transitionDuration = this.delay + 'ms'

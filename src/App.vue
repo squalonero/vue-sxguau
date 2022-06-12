@@ -34,6 +34,13 @@ export default {
 </script>
 
 <style>
+#nav {
+  position: absolute;
+  right: 0;
+  padding: 10px;
+  background: #000;
+  z-index: 10;
+}
 /* removes text highlight color */
 ::selection {
   background: transparent;
@@ -55,10 +62,13 @@ body {
   position: relative;
   max-height: 100%;
   display: block;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
 }
 #descent-helper {
   padding: 10px;
+  max-height: 100%;
 }
 
 body::before {
@@ -72,8 +82,10 @@ body::before {
   z-index: 0;
 }
 #vue {
-  position: relative;
-  z-index: auto;
+  /* position: relative;
+  width: 100vw;
+  height: 100vh;
+  z-index: auto; */
 }
 
 .flex-break {
@@ -110,5 +122,34 @@ body::before {
   display: flex;
   gap: 10px;
   align-items: center;
+}
+.scrollbar
+{
+	margin-left: 30px;
+	float: left;
+	height: 300px;
+	width: 65px;
+	background: #F5F5F5;
+	overflow-y: scroll;
+	margin-bottom: 25px;
+}
+.scrollbar::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+.scrollbar::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+.scrollbar::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #D62929;
 }
 </style>
