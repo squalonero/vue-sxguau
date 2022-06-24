@@ -6,7 +6,7 @@
       <router-link to="/game/dices">Dices</router-link>
       <router-link to="/game/dices-history">DicesHistory</router-link>
     </div>
-    <board :players="players"></board>
+    <board :hero="hero"></board>
     <side-panel></side-panel>
   </div>
 </template>
@@ -21,9 +21,30 @@ export default {
   },
   data() {
     return {
-      players: Heroes
+      hero: ''
     }
   },
-  setup() {}
+  setup() {
+    },
+  created()
+  {
+    let hero = this.$route.params.hero
+    if(hero)
+    {
+      this.hero = Heroes.filter(p => p.name === hero)
+    }
+    // console.log(this.$route.params)
+
+  }
 }
 </script>
+<style scoped>
+#playerNav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  background: #000;
+  z-index: 10;
+}
+</style>

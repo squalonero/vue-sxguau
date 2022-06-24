@@ -1,17 +1,14 @@
 <template>
   <div id="Home">
-    <!-- <select name="hero" id="hero" v-model="selectedHero">
-      <option value="" selected>Seleziona un eroe</option>
-      <option v-for="(hero, k) in hStore.heroes" :key="k">{{ hero.name }}</option>
-    </select> -->
     <div class="homepage">
       <h1>Seleziona un Eroe</h1>
       <div class="list-wrap">
         <div class="form-group" v-for="(hero, k) in hStore.heroes" :key="k">
-          {{ hero.name }}
+          <button @click="selectHero">{{ hero.name }}</button>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 <script>
@@ -30,11 +27,24 @@ export default {
       // you can return the whole store instance to use it in the template
       hStore
     }
+  },
+  methods: {
+    selectHero(e) {
+      this.selectedHero = e.target.innerText
+      this.redirectToHero()
+    },
+    redirectToHero()
+    {
+      window.location.pathname = '/game/' + encodeURIComponent(this.selectedHero)
+    }
   }
 }
 </script>
 <style scoped>
-h1{
+button{
+  all: unset;
+}
+h1 {
   color: white;
 }
 #Home {
@@ -45,5 +55,12 @@ h1{
   overflow-y: auto;
   max-height: 100%;
   width: 100%;
+  font-size: 1.5rem;
+}
+.homepage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 </style>

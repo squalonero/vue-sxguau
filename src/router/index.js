@@ -11,19 +11,19 @@ import Stats from "../views/player/Stats.vue";
 const routes = [
     { path: '/', name: "Home", component: Home, },
     { path: '/test', name: "Test", component: Test, },
-    { path: '/game2', name: "game2", component: Game2, },
+    { path: '/game2/:hero', name: "game2", component: Game2, },
     {
         /**
          * Route level code-splitting
          * this generates a separate chunk (game.[hash].js) for this route
          * which is lazy-loaded when the route is visited.
          */
-        path: "/game",
+        path: "/game/:hero",
         name: "Game",
         component: () => import("../views/Game"),
 
     },
-    { path: '/game/stats', name: "PlayerStats", component: Stats, },
+    { path: '/game/stats/:hero', name: "PlayerStats", component: Stats, },
     { path: '/game/conditions', name: "PlayerConditions", component: Conditions, },
     { path: '/game/dices', name: "PlayerDices", component: Dices, },
     { path: '/game/dices-history', name: "PlayerDicesHistory", component: DicesHistory, },

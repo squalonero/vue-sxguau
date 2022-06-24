@@ -67,8 +67,8 @@ body {
   overflow: hidden;
 }
 #descent-helper {
-  padding: 10px;
   max-height: 100%;
+  display: flex;
 }
 
 body::before {
@@ -86,6 +86,10 @@ body::before {
   width: 100vw;
   height: 100vh;
   z-index: auto; */
+  flex-shrink: 0;
+  width: 100%;
+  padding: 10px;
+
 }
 
 .flex-break {
