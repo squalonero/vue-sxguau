@@ -19,7 +19,7 @@
     </div>
     <div class="conditionsWrapper">
       <!-- Applied Conditions -->
-      <div v-for="(condition, k) of conditions" :key="k" class="condition">
+      <div v-for="(condition, k) of appliedConditions" :key="k" class="condition">
         <div class="conditionName">{{ condition }}</div>
         <div class="actionWrap">
           <icon name="book" @click="readCondition(condition)"></icon>
@@ -42,7 +42,7 @@ import Ezselect from '@/components/Form/Ezselect.vue'
 import Icon from '@/components/Icon/Icon.vue'
 import Modal from '@/components/Modal.vue'
 import { useConditionStore } from '@/store/condition.js'
-
+import { mapWritableState } from 'pinia'
 
 export default {
   name: 'Conditions',
@@ -52,36 +52,35 @@ export default {
     Modal
   },
   setup() {
-    const cStore = useConditionStore()
+    const {
+      appliedConditions,
+      getConditions,
+      applyCondition,
+      removeCondition,
+      randomCondition,
+      readCondition
+    } = useConditionStore()
     return {
-      // you can return the whole store instance to use it in the template
-      cStore
+      appliedConditions,
+      getConditions,
+      applyCondition,
+      removeCondition,
+      randomCondition,
+      readCondition
     }
   },
   data() {
     return {
-      conditions: this.cStore.getAppliedConditions(),
       modalShow: false,
       modalData: {}
     }
   },
+  computed: {
+    ...mapWritableState(useConditionStore, {
+      appliedConditions: 'appliedConditions'
+    })
+  },
   methods: {
-    getConditions() {
-      return Conditions.sort((a, b) => a.name.localeCompare(b.name)).map((e) => {
-        return { ...e }
-      })
-    },
-    applyCondition(condition) {
-      if (!this.conditions.includes(condition)) this.conditions.push(condition)
-    },
-    removeCondition(el) {
-      this.conditions = this.conditions.filter((e) => e != el)
-    },
-    randomCondition() {
-      let conditions = this.getConditions().map((el) => el.name)
-      let randomCondition = conditions[Math.floor(Math.random() * conditions.length)]
-      this.applyCondition(randomCondition)
-    },
     readCondition(condition) {
       let cond = Conditions.find((e) => e.name === condition)
       this.modalOpen({
@@ -160,8 +159,7 @@ export default {
   /* margin-left: auto; */
 }
 .randomCondition button,
-.randomCondition svg
- {
+.randomCondition svg {
   background: #b33641;
   color: #fff;
 }
