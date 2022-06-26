@@ -3,12 +3,12 @@
     <div class="modal">
       <div class="imgActions">
         <span class="rotateImg">
-        <icon
-          name="spinner11"
-          :size="20"
-          color="white"
-          @click="rotateImg = !rotateImg"
-        ></icon>
+          <icon
+            name="spinner11"
+            :size="20"
+            color="white"
+            @click="rotateImg = !rotateImg"
+          ></icon>
         </span>
         <span class="closeModal">
           <icon
@@ -77,8 +77,12 @@ export default {
 </script>
 <style scoped>
 .imgActions {
+  position: absolute;
+  z-index: 2;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
   gap: 15px;
   padding: 3px;
 }
@@ -88,22 +92,15 @@ export default {
 .flexGrid {
   gap: 15px;
   padding: 15px;
+  padding-top: 32px
 }
 .flexGrid > * {
   flex: 1;
 }
 .closeModal {
-  position: absolute;
-  right: 10px;
-  top: 10px;
   cursor: pointer;
 }
-.rotateImg{
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  cursor: pointer;
-  z-index: 2;
+.rotateImg {
 }
 .modalWrapper {
   position: fixed;
@@ -132,12 +129,11 @@ export default {
 }
 .bigImg .flip-box-inner img {
   max-width: unset;
-      max-height: calc(100vh - 30px);
-    object-fit: contain;
+  max-height: calc(100vh - 47px);
+  object-fit: contain;
 }
-.bigImg .imageContainer
-{
-  flex:1;
+.bigImg .imageContainer {
+  flex: 1;
   overflow: auto;
 }
 .imageContainer {

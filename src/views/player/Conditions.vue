@@ -41,6 +41,8 @@ import { Conditions } from '../../data/conditions.js'
 import Ezselect from '@/components/Form/Ezselect.vue'
 import Icon from '@/components/Icon/Icon.vue'
 import Modal from '@/components/Modal.vue'
+import { useConditionStore } from '@/store/condition.js'
+
 
 export default {
   name: 'Conditions',
@@ -49,10 +51,16 @@ export default {
     Icon,
     Modal
   },
-  setup() {},
+  setup() {
+    const cStore = useConditionStore()
+    return {
+      // you can return the whole store instance to use it in the template
+      cStore
+    }
+  },
   data() {
     return {
-      conditions: [],
+      conditions: this.cStore.getAppliedConditions(),
       modalShow: false,
       modalData: {}
     }

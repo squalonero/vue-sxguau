@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
-import { Conditions } from '../../data/conditions.js'
+import { Conditions } from '@/data/conditions.js'
 
 export const useConditionStore = defineStore('conditions', {
     state: () => ({
-        conditions: Conditions
+        conditions: Conditions,
+        appliedConditions: []
     }),
     getters: {
         allConditions: state => state.conditions,
@@ -16,5 +17,8 @@ export const useConditionStore = defineStore('conditions', {
                 return conditionTag == tag ? r.condition : condition
             }, '')
         },
+        getAppliedConditions(){
+            return this.appliedConditions
+        }
     },
 })
