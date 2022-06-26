@@ -1,38 +1,27 @@
 <template>
+<!-- delete -->
   <div class="Board">
     <player :id="0" :data="hero[0]" @modal:open="modalOpen"/>
-    <modal :show="this.modalShow" :title="this.modalData.title" :contents="this.modalData.contents" :images="this.modalData.images"
-    @modal:close="modalClose" ></modal>
   </div>
 </template>
 <script>
 import Player from './Player.vue'
-import Modal from "./Modal.vue"
 
 export default {
   name: 'Board',
   components: {
-    Player, Modal
+    Player
   },
   props: {
     hero: Array,
   },
   data() {
     return {
-      modalShow: false,
-      modalData: {}
+
     };
   },
   methods: {
-    modalOpen(content){
-      this.modalData = content
-      this.modalShow = true
-    },
-    modalClose()
-    {
-      this.modalShow = false
-      this.modalData = {}
-    }
+
   },
   created()
   {

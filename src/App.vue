@@ -34,6 +34,11 @@ export default {
 </script>
 
 <style>
+button {
+  all: unset;
+  display: flex;
+  align-items: center;
+}
 #nav {
   position: absolute;
   right: 0;
@@ -89,7 +94,6 @@ body::before {
   flex-shrink: 0;
   width: 100%;
   padding: 10px;
-
 }
 
 .flex-break {
@@ -97,8 +101,10 @@ body::before {
   height: 0;
 }
 
-.buttonWrapper svg {
-  padding: 5px;
+
+.buttonWrapper svg,
+.buttonWrapper button {
+  padding: 3px;
   background-color: #fff;
   color: #666;
   margin: 0 5px;
@@ -107,9 +113,10 @@ body::before {
   border-radius: 5px;
 }
 
-.buttonWrapper svg:hover {
-  background-color: #f3f3f3;
-  color: #333;
+.buttonWrapper svg:hover,
+.buttonWrapper button:hover {
+  background-color: #b33641;
+  color: #fff;
 }
 
 .buttonWrapper {
@@ -127,33 +134,29 @@ body::before {
   gap: 10px;
   align-items: center;
 }
-.scrollbar
-{
-	margin-left: 30px;
-	float: left;
-	height: 300px;
-	width: 65px;
-	background: #F5F5F5;
-	overflow-y: scroll;
-	margin-bottom: 25px;
+.scrollbar {
+  margin-left: 30px;
+  float: left;
+  height: 300px;
+  width: 65px;
+  background: #f5f5f5;
+  overflow-y: scroll;
+  margin-bottom: 25px;
 }
-.scrollbar::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	border-radius: 10px;
-	background-color: #F5F5F5;
+.scrollbar::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #f5f5f5;
 }
 
-.scrollbar::-webkit-scrollbar
-{
-	width: 12px;
-	background-color: #F5F5F5;
+.scrollbar::-webkit-scrollbar {
+  width: 12px;
+  background-color: #f5f5f5;
 }
 
-.scrollbar::-webkit-scrollbar-thumb
-{
-	border-radius: 10px;
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-	background-color: #D62929;
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #d62929;
 }
 </style>

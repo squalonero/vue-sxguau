@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Test from "../views/Test.vue";
-import Game2 from "../views/Game.vue";
+import Game2 from "../views/Game2.vue";
 
 import Conditions from "../views/player/Conditions.vue";
 import Dices from "../views/player/Dices.vue";

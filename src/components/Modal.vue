@@ -132,6 +132,8 @@ export default {
 }
 .bigImg .flip-box-inner img {
   max-width: unset;
+      max-height: calc(100vh - 30px);
+    object-fit: contain;
 }
 .bigImg .imageContainer
 {
