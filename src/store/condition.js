@@ -4,11 +4,15 @@ import { Conditions } from '@/data/conditions.js'
 export const useConditionStore = defineStore('conditions', {
     state: () => ({
         conditions: Conditions,
-        appliedConditions: []
+        appliedConditions: [],
     }),
     getters: {
         allConditions: state => state.conditions,
-        appliedConditions: state => state.appliedConditions,
+        getAppliedConditions: (state) =>
+        {
+            let local = localStorage.getItem('appliedConditions')
+            return local ? JSON.parse(local) : state.appliedConditions
+        },
     },
     actions: {
         getCondition(conditionTag)
@@ -17,24 +21,6 @@ export const useConditionStore = defineStore('conditions', {
             {
                 return conditionTag == tag ? r.condition : condition
             }, '')
-        },
-        randomCondition()
-        {
-            let conditions = this.allConditions().map((el) => el.name)
-            let randomCondition = conditions[Math.floor(Math.random() * conditions.length)]
-            this.applyCondition(randomCondition)
-        },
-        applyCondition(condition)
-        {
-            if (!this.appliedConditions.includes(condition)) this.appliedConditions.push(condition)
-        },
-        removeCondition(condition)
-        {
-            this.appliedConditions = this.appliedConditions.filter((e) => e.tag != condition.tag)
-        },
-        getAppliedConditions()
-        {
-            return this.appliedConditions
         },
         setAppliedConditions(conditions)
         {

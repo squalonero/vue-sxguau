@@ -3,7 +3,7 @@
   <div class="heroSection conditions">
     <div class="conditionsActions">
       <ezselect
-        :data="getConditions()"
+        :data="cStore.allConditions"
         defaultLabel="Scegli una Condizione"
         name="conditions"
         id="conditions"
@@ -19,11 +19,19 @@
     </div>
     <div class="conditionsWrapper">
       <!-- Applied Conditions -->
-      <div v-for="(condition, k) of appliedConditions" :key="k" class="condition">
+      <div
+        v-for="(condition, k) of cStore.getAppliedConditions"
+        :key="k"
+        class="condition"
+      >
         <div class="conditionName">{{ condition }}</div>
         <div class="actionWrap">
           <icon name="book" @click="readCondition(condition)"></icon>
-          <icon color="#b33641" name="cross" @click="removeCondition(condition)"></icon>
+          <icon
+            color="#b33641"
+            name="cross"
+            @click="removeCondition(condition)"
+          ></icon>
         </div>
       </div>
     </div>
@@ -37,12 +45,13 @@
   </div>
 </template>
 <script>
-import { Conditions } from '../../data/conditions.js'
 import Ezselect from '@/components/Form/Ezselect.vue'
 import Icon from '@/components/Icon/Icon.vue'
 import Modal from '@/components/Modal.vue'
 import { useConditionStore } from '@/store/condition.js'
 import { mapWritableState } from 'pinia'
+import { MutationType } from 'pinia'
+import { storeToRefs } from 'pinia'
 
 export default {
   name: 'Conditions',
@@ -52,21 +61,23 @@ export default {
     Modal
   },
   setup() {
-    const {
-      appliedConditions,
-      getConditions,
-      applyCondition,
-      removeCondition,
-      randomCondition,
-      readCondition
-    } = useConditionStore()
+    const cStore = useConditionStore()
+    cStore.$subscribe(
+      (mutation, state) => {
+        localStorage.setItem('appliedConditions', JSON.stringify(state.appliedConditions))
+      },
+      { detached: true }
+    )
     return {
-      appliedConditions,
-      getConditions,
-      applyCondition,
-      removeCondition,
-      randomCondition,
-      readCondition
+      cStore
+    }
+  },
+  watch: {
+    appliedConditions: {
+      handler(newVal) {
+        localStorage.setItem('appliedConditions', JSON.stringify(newVal))
+      },
+      deep: true
     }
   },
   data() {
@@ -81,8 +92,26 @@ export default {
     })
   },
   methods: {
+    randomCondition() {
+      let conditions = this.conditions.map((el) => el.name)
+      let randomCondition = conditions[Math.floor(Math.random() * conditions.length)]
+      this.applyCondition(randomCondition)
+    },
+    applyCondition(condition) {
+      let l = localStorage.getItem('appliedConditions')
+      console.log('loggin l...')
+      console.log(l)
+      if (!this.appliedConditions.includes(condition))
+        this.appliedConditions.push(condition)
+      else console.log('Condition already applied')
+    },
+    removeCondition(condition) {
+      this.appliedConditions = this.appliedConditions.filter(
+        (e) => e.tag != condition.tag
+      )
+    },
     readCondition(condition) {
-      let cond = Conditions.find((e) => e.name === condition)
+      let cond = this.cStore.conditions.find((e) => e.name === condition)
       this.modalOpen({
         title: cond.name,
         contents: [cond.desc, cond.monster_desc],
