@@ -9,13 +9,7 @@
     <!-- <board :hero="hero"></board> -->
     <div class="Board">
       <player :id="0" :data="hero[0]" @modal:open="modalOpen" />
-      <modal
-        :show="this.modalShow"
-        :title="this.modalData.title"
-        :contents="this.modalData.contents"
-        :images="this.modalData.images"
-        @modal:close="modalClose"
-      ></modal>
+
     </div>
     <!-- <side-panel></side-panel> -->
   </div>

@@ -8,11 +8,7 @@ export const useConditionStore = defineStore('conditions', {
     }),
     getters: {
         allConditions: state => state.conditions,
-        getAppliedConditions: (state) =>
-        {
-            let local = localStorage.getItem('appliedConditions')
-            return local ? JSON.parse(local) : state.appliedConditions
-        },
+        getAppliedConditions: (state) => state.appliedConditions,
     },
     actions: {
         getCondition(conditionTag)

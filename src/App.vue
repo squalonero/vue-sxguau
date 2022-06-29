@@ -2,9 +2,8 @@
   <div id="descent-helper">
     <div id="nav">
       <router-link to="/">Home</router-link>
-      <router-link to="/game">Game</router-link>
-      <router-link to="/game2">Game2</router-link>
-      <router-link to="/test">Test</router-link>
+      <router-link :to="`/hero/${hero}`">Hero</router-link>
+      <router-link to="/conditions">Conditions</router-link>
     </div>
     <router-view id="vue" class="d-flex" />
   </div>
@@ -12,15 +11,18 @@
 
 <script>
 import { useIconStore } from '@/store/icon'
+import { useHeroStore } from '@/store/heroes'
 import AppConfig from './app.config.json'
 
 export default {
   name: 'App',
   setup() {
     const icons = useIconStore()
+    const hero = useHeroStore()
     return {
       // you can return the whole store instance to use it in the template
-      icons
+      icons,
+      hero
     }
   },
   mounted() {},

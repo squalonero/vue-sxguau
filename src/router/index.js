@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Test from "../views/Test.vue";
-import Game2 from "../views/Game2.vue";
+import Hero from "../views/Hero.vue";
 
 import Conditions from "../views/player/Conditions.vue";
 import Dices from "../views/player/Dices.vue";
@@ -11,7 +11,7 @@ import Stats from "../views/player/Stats.vue";
 const routes = [
     { path: '/', name: "Home", component: Home, },
     { path: '/test', name: "Test", component: Test, },
-    { path: '/game2/:hero', name: "game2", component: Game2, },
+    { path: '/hero/:hero', name: "hero", component: Hero, },
     {
         /**
          * Route level code-splitting
@@ -23,10 +23,10 @@ const routes = [
         component: () => import("../views/Game"),
 
     },
-    { path: '/game/stats/:hero', name: "PlayerStats", component: Stats, },
-    { path: '/game/conditions', name: "PlayerConditions", component: Conditions, },
-    { path: '/game/dices', name: "PlayerDices", component: Dices, },
-    { path: '/game/dices-history', name: "PlayerDicesHistory", component: DicesHistory, },
+    { path: '/hero/stats/:hero', name: "PlayerStats", component: Hero, },
+    { path: '/hero/conditions', name: "PlayerConditions", component: Conditions, },
+    { path: '/hero/dices', name: "PlayerDices", component: Dices, },
+    { path: '/hero/dices-history', name: "PlayerDicesHistory", component: DicesHistory, },
 
 ];
 

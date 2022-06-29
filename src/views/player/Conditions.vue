@@ -24,14 +24,10 @@
         :key="k"
         class="condition"
       >
-        <div class="conditionName">{{ condition }}</div>
+        <div class="conditionName">{{ condition.name }}</div>
         <div class="actionWrap">
           <icon name="book" @click="readCondition(condition)"></icon>
-          <icon
-            color="#b33641"
-            name="cross"
-            @click="removeCondition(condition)"
-          ></icon>
+          <icon color="#b33641" name="cross" @click="removeCondition(condition)"></icon>
         </div>
       </div>
     </div>
@@ -61,57 +57,63 @@ export default {
     Modal
   },
   setup() {
+    //localStorage.clear();
     const cStore = useConditionStore()
+    const conditions = cStore.conditions
+    const appliedConditions = cStore.appliedConditions
+    //vue persistent state
+    let l = localStorage.getItem('appliedConditions')
+    if(l && (l = JSON.parse(l))) {
+      //use store actions to modify states
+      cStore.setAppliedConditions(l)
+    }
+    //use $subscribe mehod to listen to mutations
     cStore.$subscribe(
       (mutation, state) => {
         localStorage.setItem('appliedConditions', JSON.stringify(state.appliedConditions))
       },
       { detached: true }
     )
+    //send stuff to render
     return {
-      cStore
-    }
-  },
-  watch: {
-    appliedConditions: {
-      handler(newVal) {
-        localStorage.setItem('appliedConditions', JSON.stringify(newVal))
-      },
-      deep: true
+      cStore,
+      conditions,
+      appliedConditions
     }
   },
   data() {
     return {
+      conditions: [],
       modalShow: false,
       modalData: {}
     }
   },
   computed: {
-    ...mapWritableState(useConditionStore, {
-      appliedConditions: 'appliedConditions'
-    })
+    ...mapWritableState(useConditionStore, ['appliedConditions'])
   },
   methods: {
     randomCondition() {
-      let conditions = this.conditions.map((el) => el.name)
+      let conditions = this.conditions.map(({name, tag}) => ({name, tag}))
       let randomCondition = conditions[Math.floor(Math.random() * conditions.length)]
       this.applyCondition(randomCondition)
     },
     applyCondition(condition) {
-      let l = localStorage.getItem('appliedConditions')
-      console.log('loggin l...')
-      console.log(l)
-      if (!this.appliedConditions.includes(condition))
-        this.appliedConditions.push(condition)
-      else console.log('Condition already applied')
+      //unse $patch to notice $subscribe method and store state
+      this.cStore.$patch((state) => {
+        if (!state.appliedConditions.includes(condition))
+          state.appliedConditions.push(condition)
+        else console.log('Condition already applied')
+      })
     },
     removeCondition(condition) {
-      this.appliedConditions = this.appliedConditions.filter(
-        (e) => e.tag != condition.tag
-      )
+      this.cStore.$patch((state) => {
+        state.appliedConditions = state.appliedConditions.filter(
+          (e) => e.tag != condition.tag
+        )
+      })
     },
     readCondition(condition) {
-      let cond = this.cStore.conditions.find((e) => e.name === condition)
+      let cond = this.cStore.conditions.find((e) => e.tag === condition.tag)
       this.modalOpen({
         title: cond.name,
         contents: [cond.desc, cond.monster_desc],
