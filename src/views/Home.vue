@@ -35,7 +35,7 @@ export default {
     },
     redirectToHero()
     {
-      window.location.pathname = '/game/' + encodeURIComponent(this.selectedHero)
+      window.location.pathname = '/hero/' + encodeURIComponent(this.selectedHero)
     }
   }
 }

@@ -98,11 +98,21 @@ export default {
       this.applyCondition(randomCondition)
     },
     applyCondition(condition) {
+      console.log('applying condition...')
+      console.log(condition)
+
       //unse $patch to notice $subscribe method and store state
       this.cStore.$patch((state) => {
-        if (!state.appliedConditions.includes(condition))
+        if(state.appliedConditions.length === this.conditions.length) {
+          console.log('max conditions applied');
+            return;
+        }
+        if (!state.appliedConditions.filter(({tag}) => tag === condition.tag).length)
           state.appliedConditions.push(condition)
-        else console.log('Condition already applied')
+        else {
+          console.log('Condition already applied')
+            return false;
+          }
       })
     },
     removeCondition(condition) {

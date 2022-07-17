@@ -12,7 +12,7 @@
         <div class="d_flex ez_select_search_wrap">
           <input ref="search" placeholder="Filtra..." class="search" type="text" v-model="search" @input="filterList" v-focus />
         </div>
-        <div class="ez_select_fake_item" v-for="(opt, k) of searchList" :key="k" @click="changeTheSelect(opt.name)">{{ opt.name }}</div>
+        <div class="ez_select_fake_item" v-for="(opt, k) of searchList" :key="k" @click="changeTheSelect(opt.tag)">{{ opt.name }}</div>
       </div>
     </div>
   </div>
@@ -53,14 +53,16 @@ export default {
       console.log("changed")
       this.$emit("ez_select:select", $event, $event.target.value)
     },
-    changeTheSelect(condition) {
-      let selectedIndex = this.data.findIndex((option) => option.name === condition)
+    changeTheSelect(conditionTag) {
+      let selectedIndex = this.data.findIndex((option) => option.tag === conditionTag)
       this.$refs.select.options[selectedIndex + 1].selected = true
-      this.selected = this.resetOnSelect ? this.defaultLabel : condition
+      this.selected = this.resetOnSelect ? this.defaultLabel : conditionTag
       this.$refs.select.selectedIndex = this.resetOnSelect ? null : selectedIndex + 1
       this.dropDownOpen = false
       this.search = ""
-      this.$emit("ez_select:select", condition)
+
+      let result = this.data.find((option) => option.tag === conditionTag)
+      this.$emit("ez_select:select", {name: result.name, tag: result.tag})
     },
     filterList() {
       this.searchList = this.data.filter((elem) => elem.name.toLowerCase().includes(this.search.toLowerCase()))
