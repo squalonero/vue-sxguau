@@ -17,7 +17,7 @@
 <script>
 import Board from '../components/Board.vue'
 import SidePanel from '../components/SidePanel.vue'
-import Heroes from '../data/HEROES.json'
+import Heroes from '../data/heroes.json'
 import Player from '../components/Player.vue'
 import Modal from '../components/Modal.vue'
 

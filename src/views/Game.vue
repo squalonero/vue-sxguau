@@ -13,7 +13,7 @@
 <script>
 import Board from '../components/Board.vue'
 import SidePanel from '../components/SidePanel.vue'
-import Heroes from '../data/HEROES.json'
+import Heroes from '../data/heroes.json'
 export default {
   components: {
     Board,

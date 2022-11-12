@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import Heroes from '../data/HEROES.json'
+import Heroes from '../data/heroes.json'
 
 export const useHeroStore = defineStore('heroes', {
     state: () => ({
